@@ -102,7 +102,8 @@ public class Runner {
             System.out.println("enter student id: ");
             int id = sc.nextInt();
             System.out.println("enter national code: ");
-            String nationalCode = sc.next();
+            String nationalCode = sc.nextLine();
+            sc.nextLine();
             if (ApplicationContext.getStudentService().signInStudent(id, nationalCode)) {
                 System.out.println("student sign in success");
             }
@@ -135,6 +136,7 @@ public class Runner {
                 student();
                 break;
             case 4:
+                RunnerStudent.showMyCourse();
                 student();
                 break;
             case 5:
