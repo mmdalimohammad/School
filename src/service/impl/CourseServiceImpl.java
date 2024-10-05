@@ -16,7 +16,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public boolean createCourse(Course course) throws SQLException {
+    public Course createCourse(Course course) throws SQLException {
         if (course == null) {
             throw new SQLException("Course is null");
         }else {

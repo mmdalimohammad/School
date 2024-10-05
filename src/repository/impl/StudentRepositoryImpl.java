@@ -112,7 +112,7 @@ public class StudentRepositoryImpl implements StudentRepository {
                     rs.getInt("student_id"),
                     rs.getString("first_name"),
                     rs.getString("last_name"),
-                    rs.getDate("birth_date").toLocalDate(),
+                    rs.getDate("dob").toLocalDate(),
                     rs.getString("national_code")
             );
         }

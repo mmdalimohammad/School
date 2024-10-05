@@ -97,7 +97,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public boolean signIn(int studentId, String nationalCode) throws SQLException {
+    public boolean signInStudent(int studentId, String nationalCode) throws SQLException {
         Student student = sr.getStudentByIdAndNationalCode(studentId,nationalCode);
         if (student != null) {
             SecurityContext.student = student;

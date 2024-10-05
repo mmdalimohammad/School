@@ -27,6 +27,10 @@ public class Student {
     }
 
 
+    public Student(long studentId, String nationalCode) {
+        this.studentId = studentId;
+        this.nationalCode = nationalCode;
+    }
 
     public Student(long studentId, String firstName, String lastName, LocalDate dob , String nationalCode) {
         this.studentId = studentId;

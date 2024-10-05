@@ -3,6 +3,7 @@ package repository.impl;
 import data.Database;
 
 import model.Course;
+import model.dto.CourseDto;
 import repository.CourseRepository;
 
 import java.sql.PreparedStatement;
@@ -19,11 +20,12 @@ public class CourseRepositoryImpl implements CourseRepository {
 
 
     @Override
-    public boolean addCourse(Course course) throws SQLException {
+    public Course addCourse(Course course) throws SQLException {
         PreparedStatement pst = database.getDatabaseConnection().prepareStatement(ADD_NEW_COURSE_DATA);
         pst.setString(1, course.getCourseTitle());
         pst.setInt(2, course.getCourseUnit());
-        return pst.executeUpdate() > 0;
+        pst.executeUpdate();
+        return getCourseByTitle(course.getCourseTitle());
 
     }
 
@@ -72,4 +74,22 @@ public class CourseRepositoryImpl implements CourseRepository {
         }
         return null;
     }
+
+    @Override
+    public List<CourseDto> getAllCoursesDto() throws SQLException {
+        PreparedStatement pst=database.getDatabaseConnection().prepareStatement(GET_ALL_COURSE_DTO);
+        ResultSet rs=pst.executeQuery();
+        List<CourseDto> coursesDto=new ArrayList<>();
+        while (rs.next()) {
+            CourseDto courseDto=new CourseDto(
+                    rs.getString("course_title"),
+                    rs.getInt("course_unit"),
+                    rs.getString("teacher_name"),
+                    rs.getDate("date").toLocalDate(),
+                    rs.getTime("time").toLocalTime()
+            );
+        }
+        return coursesDto;
+    }
+
 }

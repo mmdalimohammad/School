@@ -30,6 +30,17 @@ public class Exam {
         this.courseId = courseId;
     }
 
+    public Exam(String examName, LocalDate examDate, LocalTime examTime) {
+        this.examName = examName;
+        this.examDate = examDate;
+        this.examTime = examTime;
+    }
+
+    public Exam(LocalDate examDate, LocalTime examTime) {
+        this.examDate = examDate;
+        this.examTime = examTime;
+    }
+
     public Long getExamId() {
         return examId;
     }
