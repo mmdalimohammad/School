@@ -2,7 +2,10 @@ package data;
 
 public class Query {
     //language=sql
-    public static final String ADD_STUDENT_DATA = "INSERT INTO students (first_name, last_name, national_code) VALUES (?,?,?)";
+    public static final String ADD_STUDENT_DATA = "INSERT INTO students (first_name, last_name, dob, national_code)\n" +
+            "VALUES (?, ?, ?, ?)";
+    //language=sql
+    public static final String GET_STUDENT_BY_ID_NATIONAL_CODE = "select *\n" + "from students\n" + "where student_id = ? and national_code = ?";
     //language=sql
     public static final String GET_ALL_STUDENT_QUERY = "SELECT * FROM students ";
     //language=sql
@@ -47,6 +50,6 @@ public class Query {
     //******************************************************************************************************************************************
 
     //language=sql
-    public static final String ADD_NEW_EXAM_DATA="INSERT INTO exams (exam_name,date,time) VALUES (?,date ?,timestamptz ?)";
+    public static final String ADD_NEW_EXAM_DATA="INSERT INTO exams (exam_name,date,time,course_id) VALUES (?,?,?,?)";
 
 }

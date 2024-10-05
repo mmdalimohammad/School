@@ -12,5 +12,6 @@ public interface StudentRepository {
     boolean removeStudent(Student student)throws SQLException;
     Student getStudentByNationalCode(String nationalCode)throws SQLException;
     boolean updateStudent(Student student)throws SQLException;
+    Student getStudentByIdAndNationalCode(int id, String nationalCode) throws SQLException;
 
 }

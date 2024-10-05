@@ -3,9 +3,12 @@ package service.impl;
 import model.Student;
 import repository.StudentRepository;
 import service.StudentService;
+import util.SecurityContext;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class StudentServiceImpl implements StudentService {
@@ -53,11 +56,11 @@ public class StudentServiceImpl implements StudentService {
         }
     }
     @Override
-    public Student generateStudent(String firstName, String lastName, String nationalCode) throws SQLException {
+    public Student generateStudent(String firstName, String lastName, LocalDate dob, String nationalCode) throws SQLException {
         if (sr.getStudentByNationalCode(nationalCode)!=null){
             throw new IllegalArgumentException("nationalCode already exists");
         }else {
-            return new Student(firstName, lastName, nationalCode);
+            return new Student(firstName, lastName, dob,nationalCode);
         }
     }
 
@@ -91,5 +94,15 @@ public class StudentServiceImpl implements StudentService {
         }else {
             return sr.getStudentByNationalCode(nationalCode);
         }
+    }
+
+    @Override
+    public boolean signIn(int studentId, String nationalCode) throws SQLException {
+        Student student = sr.getStudentByIdAndNationalCode(studentId,nationalCode);
+        if (student != null) {
+            SecurityContext.student = student;
+            return true;
+        }
+        return false;
     }
 }

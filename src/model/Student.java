@@ -2,17 +2,18 @@ package model;
 
 import java.util.Date;
 import java.util.Objects;
+import java.time.LocalDate;
 
 public class Student {
     private long studentId;
     private String firstName;
     private String lastName;
-    private Date dob;
+    private LocalDate dob;
     private String nationalCode;
     private double gpu;
 
 
-    public Student(long studentId, String firstName, String lastName, Date dob, String nationalCode, double gpu) {
+    public Student(long studentId, String firstName, String lastName, LocalDate dob, String nationalCode, double gpu) {
         this.studentId = studentId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,16 +26,20 @@ public class Student {
     public Student() {
     }
 
-    public Student(String firstName, String lastName, String nationalCode) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.nationalCode = nationalCode;
-    }
 
-    public Student(long studentId, String firstName, String lastName, String nationalCode) {
+
+    public Student(long studentId, String firstName, String lastName, LocalDate dob , String nationalCode) {
         this.studentId = studentId;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.dob = dob;
+        this.nationalCode = nationalCode;
+    }
+
+    public Student(String firstName, String lastName, LocalDate dob, String nationalCode) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dob=dob;
         this.nationalCode = nationalCode;
     }
 
@@ -63,11 +68,11 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public Date getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 

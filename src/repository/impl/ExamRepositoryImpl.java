@@ -4,8 +4,10 @@ import data.Database;
 import model.Exam;
 import repository.ExamRepository;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.List;
 
 import static data.Query.*;
@@ -17,8 +19,9 @@ public class ExamRepositoryImpl implements ExamRepository {
     public boolean addExam(Exam exam) throws SQLException {
         PreparedStatement pst = database.getDatabaseConnection().prepareStatement(ADD_NEW_EXAM_DATA);
         pst.setString(1, exam.getExamName());
-        pst.setDate(2, java.sql.Date.valueOf(exam.getExamDate()));
-        pst.setTimestamp(3, java.sql.Timestamp.valueOf(exam.getExamTime()));
+        pst.setDate(2, Date.valueOf(exam.getExamDate()));
+        pst.setTime(3, Time.valueOf(exam.getExamTime()));
+        pst.setInt(4,exam.getCourseId());
         return pst.executeUpdate() > 0;
     }
 

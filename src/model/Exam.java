@@ -3,17 +3,19 @@ package model;
 import java.sql.Date;
 import java.sql.SQLData;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Objects;
 
 public class Exam {
     private Long examId;
     private String examName;
-    private String examDate;
-    private String examTime;
+    private LocalDate examDate;
+    private LocalTime examTime;
     private int courseId;
 
 
-    public Exam(Long examId, String examName, String examDate, String examTime, int courseId) {
+    public Exam(Long examId, String examName, LocalDate examDate, LocalTime examTime, int courseId) {
         this.examId = examId;
         this.examName = examName;
         this.examDate = examDate;
@@ -21,10 +23,11 @@ public class Exam {
         this.courseId = courseId;
     }
 
-    public Exam(String examName, String examDate, String examTime) {
+    public Exam(String examName, LocalDate examDate, LocalTime examTime, int courseId) {
         this.examName = examName;
         this.examDate = examDate;
         this.examTime = examTime;
+        this.courseId = courseId;
     }
 
     public Long getExamId() {
@@ -43,19 +46,19 @@ public class Exam {
         this.examName = examName;
     }
 
-    public String getExamDate() {
+    public LocalDate getExamDate() {
         return examDate;
     }
 
-    public void setExamDate(String examDate) {
+    public void setExamDate(LocalDate examDate) {
         this.examDate = examDate;
     }
 
-    public String getExamTime() {
+    public LocalTime getExamTime() {
         return examTime;
     }
 
-    public void setExamTime(String examTime) {
+    public void setExamTime(LocalTime examTime) {
         this.examTime = examTime;
     }
 
@@ -85,8 +88,8 @@ public class Exam {
         return "Exam{" +
                 "examId=" + examId +
                 ", examName='" + examName + '\'' +
-                ", examDate='" + examDate + '\'' +
-                ", examTime='" + examTime + '\'' +
+                ", examDate=" + examDate +
+                ", examTime=" + examTime +
                 ", courseId=" + courseId +
                 '}';
     }

@@ -4,11 +4,13 @@ import model.Student;
 import repository.StudentRepository;
 import data.Database;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 import static data.Query.*;
 
@@ -28,7 +30,7 @@ public class StudentRepositoryImpl implements StudentRepository {
                     studentsResult.getLong("student_id"),
                     studentsResult.getString("first_name"),
                     studentsResult.getString("last_name"),
-                    studentsResult.getDate("dob"),
+                    studentsResult.getDate("dob").toLocalDate(),
                     studentsResult.getString("national_code"),
                     studentsResult.getDouble("gpu")
 
@@ -54,12 +56,12 @@ public class StudentRepositoryImpl implements StudentRepository {
     public boolean createStudent(Student student) throws SQLException {
 
         PreparedStatement pst = database.getDatabaseConnection().prepareStatement(ADD_STUDENT_DATA);
-
         pst.setString(1, student.getFirstName());
         pst.setString(2, student.getLastName());
-        pst.setString(3, student.getNationalCode());
-        pst.executeUpdate();
-        return true;
+        pst.setDate(3, Date.valueOf(student.getDob()));
+        pst.setString(4, student.getNationalCode());
+        ;
+        return pst.executeUpdate() > 0;
     }
 
     @Override
@@ -72,14 +74,15 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public Student getStudentByNationalCode(String nationalCode) throws SQLException {
-        PreparedStatement pst=database.getDatabaseConnection().prepareStatement(GET_STUDENT_FIND_BY_NATIONAL_CODE);
+        PreparedStatement pst = database.getDatabaseConnection().prepareStatement(GET_STUDENT_FIND_BY_NATIONAL_CODE);
         pst.setString(1, nationalCode);
-        ResultSet rs=pst.executeQuery();
+        ResultSet rs = pst.executeQuery();
         if (rs.next()) {
             return new Student(
                     rs.getLong("student_id"),
                     rs.getString("first_name"),
                     rs.getString("last_name"),
+                    LocalDate.parse(rs.getString("dob")),
                     rs.getString("national_code")
 
             );
@@ -89,13 +92,34 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public boolean updateStudent(Student student) throws SQLException {
-        PreparedStatement pst=database.getDatabaseConnection().prepareStatement(UPDATE_STUDENT_DATA);
+        PreparedStatement pst = database.getDatabaseConnection().prepareStatement(UPDATE_STUDENT_DATA);
         pst.setString(1, student.getFirstName());
         pst.setString(2, student.getLastName());
-        pst.setString(3, student.getNationalCode());
+        pst.setDate(2, Date.valueOf(student.getDob()));
+        pst.setString(4, student.getNationalCode());
         pst.executeUpdate();
         return true;
     }
+
+    @Override
+    public Student getStudentByIdAndNationalCode(int id, String nationalCode) throws SQLException {
+        PreparedStatement pst = database.getDatabaseConnection().prepareStatement(GET_STUDENT_BY_ID_NATIONAL_CODE);
+        pst.setInt(1, id);
+        pst.setString(2, nationalCode);
+        ResultSet rs = pst.executeQuery();
+        if (rs.next()) {
+            return new Student(
+                    rs.getInt("student_id"),
+                    rs.getString("first_name"),
+                    rs.getString("last_name"),
+                    rs.getDate("birth_date").toLocalDate(),
+                    rs.getString("national_code")
+            );
+        }
+        return null;
+    }
+
 }
+
 
 
