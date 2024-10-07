@@ -31,9 +31,7 @@ public class StudentRepositoryImpl implements StudentRepository {
                     studentsResult.getString("first_name"),
                     studentsResult.getString("last_name"),
                     studentsResult.getDate("dob").toLocalDate(),
-                    studentsResult.getString("national_code"),
-                    studentsResult.getDouble("gpu")
-
+                    studentsResult.getString("national_code")
             );
             students.add(student);
         }

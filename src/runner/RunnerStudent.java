@@ -94,7 +94,9 @@ public class RunnerStudent {
             int year = Integer.parseInt(birthDate.substring(0, 4));
             int month = Integer.parseInt(birthDate.substring(5, 7));
             int day = Integer.parseInt(birthDate.substring(8, 10));
-            ApplicationContext.getStudentService().updateStudent(nationalCode, new Student(firstName, lastName, LocalDate.of(year, month, day), nationalCode));
+            System.out.println("enter a national Code:");
+            String nationalCode1 = sc.nextLine();
+            ApplicationContext.getStudentService().updateStudent(nationalCode1, new Student(firstName, lastName, LocalDate.of(year, month, day), nationalCode1));
             System.out.println("dune update Student");
         } catch (Exception exception) {
             System.out.println(exception.getMessage());

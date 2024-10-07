@@ -37,6 +37,7 @@ public class Runner {
         System.out.println("2: Teacher");
         System.out.println("3: Course");
         System.out.println("4: Exam");
+        System.out.println("5: Exit");
         System.out.print("Enter your choice number:");
         int choice = sc.nextInt();
         switch (choice) {
@@ -51,6 +52,8 @@ public class Runner {
                 break;
             case 4:
                 RunnerExam.Exam();
+            case 5:
+                run();
         }
     }
 
@@ -70,6 +73,7 @@ public class Runner {
                 student();
                 break;
             case 2:
+                signInTeacher();
                 break;
             case 3:
                 return;
@@ -149,5 +153,47 @@ public class Runner {
 
     }
 
+    public static void teacher() {
+
+        System.out.println("1 - show My Students");
+        System.out.println("2 - show My course");
+        System.out.println("3 - edit information");
+        System.out.println("4 - return to last page");
+        System.out.println("enter a number");
+        int number = sc.nextInt();
+        switch (number) {
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+            case 4:
+                return;
+
+        }
+
+    }
+
+
+
+
+    private static void signInTeacher() {
+        try {
+            System.out.println("enter teacher id: ");
+            int id = sc.nextInt();
+            System.out.println("enter national code: ");
+            String nationalCode = sc.nextLine();
+            sc.nextLine();
+            if (ApplicationContext.getTeacherService().signInTeacher(id, nationalCode)) {
+                System.out.println("teacher sign in success");
+            }
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
 
 }

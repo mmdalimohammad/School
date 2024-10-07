@@ -3,6 +3,7 @@ package service.impl;
 import model.Teacher;
 import repository.TeacherRepository;
 import service.TeacherService;
+import util.SecurityContext;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -86,6 +87,16 @@ public class TeacherServiceImpl implements TeacherService {
         }else {
             return tr.getTeacherByNationalCode(nationalCode);
         }
+    }
+
+    @Override
+    public boolean signInTeacher(int teacherId, String nationalCode) throws SQLException {
+     Teacher teacher=tr.getTeacherByIdAndNationalCode(teacherId,nationalCode);
+     if (teacher!=null){
+         SecurityContext.teacher = teacher;
+         return true;
+     }
+     return false;
     }
 
 

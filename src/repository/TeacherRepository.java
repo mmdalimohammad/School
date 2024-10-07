@@ -1,5 +1,6 @@
 package repository;
 
+import model.Student;
 import model.Teacher;
 
 import java.sql.SQLException;
@@ -14,4 +15,5 @@ public interface TeacherRepository {
     boolean removeTeacher(Teacher teacher) throws SQLException;
     Teacher getTeacherByNationalCode(String nationalCode) throws SQLException;
     boolean updateTeacher(Teacher teacher) throws SQLException;
+    Teacher getTeacherByIdAndNationalCode(int id, String nationalCode) throws SQLException;
 }

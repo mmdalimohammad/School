@@ -28,12 +28,13 @@ public class StudentServiceImpl implements StudentService {
     public void printAllStudentList() {
         try {
             List<Student> students = sr.getAllStudents();
-            System.out.printf("\u001B[35m"+"%-7s %-13s %-13s %-17s\n", "id", "first name", "last name", "national code");
+            System.out.printf("\u001B[35m"+"%-7s %-13s %-13s %-13s %-17s\n", "id", "first name", "last name","Dob","national code");
             for (Student student : students) {
-                System.out.printf("%-7s %-13s %-13s %-17s\n",
+                System.out.printf("%-7s %-13s %-13s %-13s %-17s\n",
                         student.getStudentId(),
                         student.getFirstName(),
                         student.getLastName(),
+                        student.getDob(),
                         student.getNationalCode());
             }
 

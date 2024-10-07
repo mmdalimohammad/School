@@ -27,7 +27,7 @@ public class TeacherRepositoryImpl implements TeacherRepository {
                     teacherResult.getLong("teacher_id"),
                     teacherResult.getString("first_name"),
                     teacherResult.getString("last_name"),
-                    teacherResult.getDate("dob"),
+                    teacherResult.getDate("dob").toLocalDate(),
                     teacherResult.getString("national_code"),
                     teacherResult.getInt("course_id")
             );
@@ -92,5 +92,23 @@ public class TeacherRepositoryImpl implements TeacherRepository {
         pst.setString(3,teacher.getNationalCode());
         pst.executeUpdate();
         return true;
+    }
+
+    @Override
+    public Teacher getTeacherByIdAndNationalCode(int id, String nationalCode) throws SQLException {
+        PreparedStatement pst=database.getDatabaseConnection().prepareStatement(GET_TEACHER_BY_ID_NATIONAL_CODE);
+        pst.setLong(1,id);
+        pst.setString(2,nationalCode);
+        ResultSet rt=pst.executeQuery();
+        if (rt.next()) {
+            return new Teacher(
+                    rt.getLong("teacher_id"),
+                    rt.getString("first_name"),
+                    rt.getString("last_name"),
+                    rt.getDate("dob").toLocalDate(),
+                    rt.getString("national_code")
+            );
+        }
+        return null;
     }
 }

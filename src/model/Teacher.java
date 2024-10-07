@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -8,11 +9,11 @@ public class Teacher {
     private Long teacherId;
     private String firstName;
     private String lastName;
-    private Date dob;
+    private LocalDate dob;
     private String nationalCode;
     private int courseID;
 
-    public Teacher(Long teacherId, String firstName, String lastName, Date dob, String nationalCode, int courseID) {
+    public Teacher(Long teacherId, String firstName, String lastName, LocalDate dob, String nationalCode, int courseID) {
         this.teacherId = teacherId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -34,6 +35,14 @@ public class Teacher {
         this.teacherId = teacherId;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.nationalCode = nationalCode;
+    }
+
+    public Teacher(Long teacherId, String firstName, String lastName, LocalDate dob, String nationalCode) {
+        this.teacherId = teacherId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dob = dob;
         this.nationalCode = nationalCode;
     }
 
@@ -61,11 +70,11 @@ public class Teacher {
         this.lastName = lastName;
     }
 
-    public Date getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 

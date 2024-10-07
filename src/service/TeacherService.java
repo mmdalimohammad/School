@@ -13,4 +13,5 @@ public interface TeacherService {
     boolean removeTeacher(String nationalCode) throws SQLException;
     boolean updateTeacher(String nationalCode ,Teacher newTeacher) throws SQLException;
     Teacher getTeacherNationalCode(String nationalCode)throws SQLException;
+    boolean signInTeacher(int teacherId, String nationalCode) throws SQLException;
 }
