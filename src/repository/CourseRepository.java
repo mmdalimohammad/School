@@ -14,4 +14,5 @@ public interface CourseRepository {
     Course getCourseByTitle(String courseTitle) throws SQLException;
     List<CourseDto> getAllCoursesDto() throws SQLException;
 
+
 }

@@ -18,18 +18,18 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public boolean addExam(Exam exam) throws SQLException {
-        if (exam==null){
+        if (exam == null) {
             throw new SQLException("exam is null");
-        }else {
-           return er.addExam(exam);
+        } else {
+            return er.addExam(exam);
         }
     }
 
     @Override
-    public boolean updateExam(String name,Exam newExam) throws SQLException {
-        if (er.getExamByName(name)==null || newExam==null){
+    public boolean updateExam(String name, Exam newExam) throws SQLException {
+        if (er.getExamByName(name) == null || newExam == null) {
             throw new IllegalArgumentException("exam is null");
-        }else {
+        } else {
             return er.updateExam(newExam);
         }
     }
@@ -41,26 +41,26 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public void printAllExams() {
-    try {
-        List<Exam>exams=er.getAllExams();
-        System.out.printf("\u001B[35m"+"%-7s %-13s %-13s %-17s\n", "id", "name", "Date", "Time");
-        for (Exam exam : exams) {
-            System.out.printf("%-7s %-13s %-13s %-17s\n",
-                    exam.getExamId(),
-                    exam.getExamName(),
-                    exam.getExamDate(),
-                    exam.getExamTime());
+        try {
+            List<Exam> exams = er.getAllExams();
+            System.out.printf("\u001B[35m" + "%-7s %-13s %-13s %-17s\n", "id", "name", "Date", "Time");
+            for (Exam exam : exams) {
+                System.out.printf("%-7s %-13s %-13s %-17s\n",
+                        exam.getExamId(),
+                        exam.getExamName(),
+                        exam.getExamDate(),
+                        exam.getExamTime());
+            }
+        } catch (SQLException sqlException) {
+            System.out.println("there is problem with connecting to database");
         }
-    }catch (SQLException sqlException){
-        System.out.println("there is problem with connecting to database");
-    }
     }
 
     @Override
     public Exam getExamByName(String ExamName) throws SQLException {
         if (er.getExamByName(ExamName) == null) {
             throw new IllegalArgumentException("name already exists");
-        }else {
+        } else {
             return er.getExamByName(ExamName);
         }
     }

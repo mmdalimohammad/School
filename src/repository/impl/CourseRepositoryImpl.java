@@ -29,6 +29,7 @@ public class CourseRepositoryImpl implements CourseRepository {
 
     }
 
+
     @Override
     public boolean updateCourse(Course course) throws SQLException {
         PreparedStatement pst= database.getDatabaseConnection().prepareStatement(UPDATE_COURSE_DATA);
