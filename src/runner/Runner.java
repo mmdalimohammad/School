@@ -17,7 +17,7 @@ public class Runner {
         int choice = sc.nextInt();
         switch (choice) {
             case 1:
-                admin();
+                adminUserPass();
                 break;
             case 2:
                 signInStAndTe();
@@ -55,6 +55,21 @@ public class Runner {
             case 5:
                 run();
         }
+    }
+    private static void adminUserPass(){
+        try {
+            System.out.println("enter your username:");
+            String username = sc.next();
+            System.out.println("enter your password:");
+            String password = sc.next();
+           if (ApplicationContext.getAdminService().login(username,password)){
+               System.out.println("Admin sign in success");
+               admin();
+           }
+        }catch (Exception exception){
+            System.out.println(exception.getMessage());
+        }
+
     }
 
 

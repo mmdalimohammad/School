@@ -19,7 +19,7 @@ public class Query {
     //language=sql
     public static final String ADD_COURSE_STUDENT = "insert into courses_students(course_id, student_id) values (?,?)";
     //language=sql
-    public static final String GET_USER_COURSES="select c.course_title,\n" + "c.course_unit,\n" + "concat(t.first_name, ' ', t.last_name) as teacherName,\n" + "e.date,\n" + "e.time\n" + "from courses c\n" + "join courses_students cs\n" + "on c.course_id = cs.course_id\n" + "join teachers t\n" + "on c.course_id = t.course_id\n" + "join public.exams e on c.course_id = e.course_id where student_id = ?1";
+    public static final String GET_USER_COURSES = "select c.course_title,\n" + "c.course_unit,\n" + "concat(t.first_name, ' ', t.last_name) as teacherName,\n" + "e.date,\n" + "e.time\n" + "from courses c\n" + "join courses_students cs\n" + "on c.course_id = cs.course_id\n" + "join teachers t\n" + "on c.course_id = t.course_id\n" + "join public.exams e on c.course_id = e.course_id where student_id = ?1";
 
     //******************************************************************************************************************************************
 
@@ -39,7 +39,6 @@ public class Query {
     public static final String GET_TEACHER_BY_ID_NATIONAL_CODE = "select *\n" + "from teachers\n" + "where teacher_id = ? and national_code = ?";
 
 
-
     //******************************************************************************************************************************************
 
     //language=sql
@@ -53,7 +52,7 @@ public class Query {
     //language=sql
     public static final String UPDATE_COURSE_DATA = "UPDATE courses SET course_title = ?,course_unit=? WHERE course_id = ?";
     //language=sql
-    public static final String GET_ALL_COURSE_DTO ="select c.course_title, c.course_unit, concat(t.first_name, ' ' , t.last_name) as teacherName, e.date, e.time\n" +
+    public static final String GET_ALL_COURSE_DTO = "select c.course_title, c.course_unit, concat(t.first_name, ' ' , t.last_name) as teacherName, e.date, e.time\n" +
             "from courses c\n" +
             "         join teachers t\n" +
             "              on c.course_id = t.course_id\n" +
@@ -64,7 +63,7 @@ public class Query {
     //******************************************************************************************************************************************
 
     //language=sql
-    public static final String ADD_NEW_EXAM_DATA="INSERT INTO exams (exam_name,date,time,course_id) VALUES (?,?,?,?)";
+    public static final String ADD_NEW_EXAM_DATA = "INSERT INTO exams (exam_name,date,time,course_id) VALUES (?,?,?,?)";
     //language=sql
     public static final String REMOVE_EXAM_DATA = "DELETE FROM exams WHERE exam_id = ?";
     //language=sql
@@ -73,6 +72,8 @@ public class Query {
     public static final String GET_ALL_EXAM = "SELECT * FROM exams";
     //language=sql
     public static final String UPDATE_EXAM_DATA = "UPDATE exams SET exam_name = ?,date = ?,time = ?, WHERE course_id = ?";
-
+    //******************************************************************************************************************************************
+    //language=sql
+    public static final String ADMIN_USER_AND_PASS = "select * from admins where username = ? and password = ?";
 
 }
