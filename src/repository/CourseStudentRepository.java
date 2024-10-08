@@ -10,7 +10,8 @@ public interface CourseStudentRepository {
 
     List<CourseDto> getCourses() throws SQLException;
     boolean addCourse(int courseId,long studentId,String national_code) throws SQLException;
-    boolean deleteCourse(int courseId,int studentId)throws SQLException;
+    boolean deleteCourse(int courseId,long studentId)throws SQLException;
+
 
 
 }

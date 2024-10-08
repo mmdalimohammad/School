@@ -149,7 +149,7 @@ public class Runner {
                 student();
                 break;
             case 2:
-                RunnerCourse.removeCourse();
+                RunnerStudent.removeCourseStudent();
                 student();
                 break;
             case 3:

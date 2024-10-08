@@ -55,8 +55,23 @@ public class CourseStudentRepositoryImpl implements CourseStudentRepository {
     }
 
     @Override
-    public boolean deleteCourse(int courseId, int studentId) {
-        return false;
+    public boolean deleteCourse(int courseId, long studentId) throws SQLException {
+        PreparedStatement pst1 = database.getDatabaseConnection().prepareStatement(DELETE_COURSE_STUDENT);
+        pst1.setInt(1, courseId);
+        pst1.setLong(2, studentId);
+
+
+
+        pst1.executeUpdate();
+        PreparedStatement pst2 = database.getDatabaseConnection().prepareStatement(FIND_EXAM_STUDENT);
+        pst2.setInt(1, courseId);
+        ResultSet rs = pst2.executeQuery();
+        if (rs.next()) {
+            PreparedStatement pst3 = database.getDatabaseConnection().prepareStatement(DELETE_EXAM_STUDENT);
+            pst3.setInt(1, rs.getInt("exam_id"));
+            pst3.executeUpdate();
+        }
+        return true;
     }
     static List<CourseDto> getCourseDtos(ResultSet rs) throws SQLException {
         List<CourseDto> courses = new ArrayList<>();

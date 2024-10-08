@@ -122,4 +122,17 @@ public class RunnerStudent {
             System.out.println(e.getMessage());
         }
     }
+    public static void removeCourseStudent() {
+        try{
+            System.out.println("enter course title: ");
+            String title= sc.nextLine();
+            if (ApplicationContext.getCourseStudentService().removeCourse(title)){
+                System.out.println("Course removed");
+            }else {
+            System.out.println("Course not removed");
+            }
+        }catch (Exception e) {
+        System.out.println(e.getMessage());
+        }
+    }
 }

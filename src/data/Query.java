@@ -25,6 +25,10 @@ public class Query {
     public static final String ADD_EXAM_STUDENT = "insert into exams_students (exam_id,student_id,national_code) values (?,?,?)";
     //language=sql
     public static final String FIND_EXAM_STUDENT = "select e.exam_id from courses_students cs join exams e on e.course_id = cs.course_id where cs.student_id = ? ";
+    //language=sql
+    public static final String DELETE_COURSE_STUDENT = "delete from courses_students cs where student_id = ? and course_id = ?";
+    //language=sql
+    public static final String DELETE_EXAM_STUDENT = "delete from exams_students where exam_id = ?";
     //******************************************************************************************************************************************
 
     //language=sql
