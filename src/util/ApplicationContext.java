@@ -29,7 +29,7 @@ public class ApplicationContext {
         examRepository=new ExamRepositoryImpl();
         examService=new ExamServiceImpl(examRepository);
         courseStudentRepository=new CourseStudentRepositoryImpl();
-        courseStudentService=new CourseStudentServiceImpl(courseStudentRepository);
+        courseStudentService=new CourseStudentServiceImpl(courseStudentRepository,courseRepository);
         adminRepository=new AdminRepositoryImpl();
         adminService=new AdminServiceImpl(adminRepository);
     }

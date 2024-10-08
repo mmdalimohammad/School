@@ -56,17 +56,18 @@ public class Runner {
                 run();
         }
     }
-    private static void adminUserPass(){
+
+    private static void adminUserPass() {
         try {
             System.out.println("enter your username:");
             String username = sc.next();
             System.out.println("enter your password:");
             String password = sc.next();
-           if (ApplicationContext.getAdminService().login(username,password)){
-               System.out.println("Admin sign in success");
-               admin();
-           }
-        }catch (Exception exception){
+            if (ApplicationContext.getAdminService().login(username, password)) {
+                System.out.println("Admin sign in success");
+                admin();
+            }
+        } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
 
@@ -85,7 +86,7 @@ public class Runner {
         switch (number) {
             case 1:
                 signInStudent();
-                student();
+
                 break;
             case 2:
                 signInTeacher();
@@ -122,9 +123,10 @@ public class Runner {
             int id = sc.nextInt();
             System.out.println("enter national code: ");
             String nationalCode = sc.nextLine();
-            sc.nextLine();
+            nationalCode = (sc.nextLine());
             if (ApplicationContext.getStudentService().signInStudent(id, nationalCode)) {
                 System.out.println("student sign in success");
+                student();
             }
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
@@ -143,7 +145,7 @@ public class Runner {
         int number = sc.nextInt();
         switch (number) {
             case 1:
-                RunnerCourse.AddCourse();
+                RunnerStudent.addCourseStudent();
                 student();
                 break;
             case 2:
@@ -192,8 +194,6 @@ public class Runner {
         }
 
     }
-
-
 
 
     private static void signInTeacher() {

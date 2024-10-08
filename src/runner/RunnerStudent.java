@@ -105,16 +105,21 @@ public class RunnerStudent {
     private static void showAllStudent() {
         ApplicationContext.getStudentService().printAllStudentList();
     }
-    public static void showMyCourse(){
-        try {
-            List<CourseDto> courses=ApplicationContext.getCourseStudentService().getCourses();
-            System.out.printf("%-13s %-5 %-20s %-13s %-13s\n","title","credit","teacher", "date","time");
-            for (CourseDto course : courses) {
-                System.out.printf("%-13s %-5 %-20s %-13s %-13s\n", course.getCourseTitle(), course.getCourseUnit(), course.getTeacherName(), course.getExamDate(), course.getExamTime());
-            }
-        }catch (Exception exception){
-            System.out.println(exception.getMessage());
-        }
 
+    public static void showMyCourse(){
+        ApplicationContext.getCourseStudentService().showMyCourses();
+    }
+    public static void addCourseStudent() {
+        try{
+            System.out.println("enter course title: ");
+            String courseTitle = sc.nextLine();
+            if (ApplicationContext.getCourseStudentService().addCourse(courseTitle)) {
+                System.out.println("Course added");
+            }else {
+                System.out.println("Course not added");
+            }
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
