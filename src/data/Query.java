@@ -84,7 +84,7 @@ public class Query {
     //language=sql
     public static final String GET_ALL_EXAM = "SELECT * FROM exams";
     //language=sql
-    public static final String UPDATE_EXAM_DATA = "UPDATE exams SET exam_name = ?,date = ?,time = ? WHERE course_id = ?";
+    public static final String UPDATE_EXAM_DATA = "UPDATE exams SET exam_name = ?,date = ?,time = ? WHERE exam_id = ?";
     //******************************************************************************************************************************************
     //language=sql
     public static final String ADMIN_USER_AND_PASS = "select * from admins where username = ? and password = ?";

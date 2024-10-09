@@ -31,7 +31,7 @@ public class ExamRepositoryImpl implements ExamRepository {
         pst.setString(1,exam.getExamName());
         pst.setDate(2,Date.valueOf(exam.getExamDate()));
         pst.setTime(3,Time.valueOf(exam.getExamTime()));
-        pst.setInt(4,exam.getCourseId());
+        pst.setLong(4,exam.getExamId());
         return pst.executeUpdate() > 0;
     }
 

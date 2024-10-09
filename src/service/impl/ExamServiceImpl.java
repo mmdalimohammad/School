@@ -31,7 +31,8 @@ public class ExamServiceImpl implements ExamService {
         if (exam == null || newExam == null) {
             throw new IllegalArgumentException("exam is null");
         } else {
-
+            newExam.setExamId(exam.getExamId());
+            newExam.setExamName(name);
             return er.updateExam(newExam);
         }
     }
