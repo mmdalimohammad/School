@@ -37,7 +37,7 @@ public class RunnerCourse {
                 Course();
                 break;
             case 5:
-                return;
+                Runner.admin();
         }
     }
 

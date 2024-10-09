@@ -49,6 +49,7 @@ public class ExamRepositoryImpl implements ExamRepository {
         List<Exam> exams=new ArrayList<>();
         while(examResult.next()){
             Exam exam=new Exam(
+                    examResult.getLong("exam_id"),
                     examResult.getString("exam_name"),
                     examResult.getDate("date").toLocalDate(),
                     examResult.getTime("time").toLocalTime(),

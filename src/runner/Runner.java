@@ -32,7 +32,7 @@ public class Runner {
 
     }
 
-    private static void admin() {
+    public static void admin() {
         System.out.println("1: Student");
         System.out.println("2: Teacher");
         System.out.println("3: Course");
@@ -59,13 +59,17 @@ public class Runner {
 
     private static void adminUserPass() {
         try {
-            System.out.println("enter your username:");
+            System.out.println("\u001B[34m"+"enter your username:");
             String username = sc.next();
-            System.out.println("enter your password:");
+            System.out.println("\u001B[34m"+"enter your password:");
             String password = sc.next();
             if (ApplicationContext.getAdminService().login(username, password)) {
-                System.out.println("Admin sign in success");
+                System.out.println("\u001B[34m"+"Admin sign in success");
                 admin();
+            }else {
+                System.out.println("\u001B[37m"+"**"+"\u001B[31m"+"Password or username is wrong"+"\u001B[37m"+"**");
+                System.out.print("\033[0m");
+                run();
             }
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
@@ -183,10 +187,10 @@ public class Runner {
 
                 break;
             case 2:
-
+                RunnerTeacher.showMyTeacher();
                 break;
             case 3:
-
+                RunnerTeacher.updateTeacher();
                 break;
             case 4:
                 return;
@@ -202,9 +206,10 @@ public class Runner {
             int id = sc.nextInt();
             System.out.println("enter national code: ");
             String nationalCode = sc.nextLine();
-            sc.nextLine();
+            nationalCode = (sc.nextLine());
             if (ApplicationContext.getTeacherService().signInTeacher(id, nationalCode)) {
                 System.out.println("teacher sign in success");
+                teacher();
             }
         } catch (Exception exception) {
             System.out.println(exception.getMessage());

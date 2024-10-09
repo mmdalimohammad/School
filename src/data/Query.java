@@ -26,7 +26,7 @@ public class Query {
     //language=sql
     public static final String FIND_EXAM_STUDENT = "select e.exam_id from courses_students cs join exams e on e.course_id = cs.course_id where cs.student_id = ? ";
     //language=sql
-    public static final String DELETE_COURSE_STUDENT = "delete from courses_students cs where student_id = ? and course_id = ?";
+    public static final String DELETE_COURSE_STUDENT = "delete from courses_students cs where  course_id = ? and student_id = ? and national_code = ?";
     //language=sql
     public static final String DELETE_EXAM_STUDENT = "delete from exams_students where exam_id = ?";
     //******************************************************************************************************************************************
@@ -45,6 +45,7 @@ public class Query {
     public static final String UPDATE_TEACHER_DATA = "UPDATE teachers SET first_name =? ,last_name=? WHERE national_code = ?";
     //language=sql
     public static final String GET_TEACHER_BY_ID_NATIONAL_CODE = "select *\n" + "from teachers\n" + "where teacher_id = ? and national_code = ?";
+
 
 
     //******************************************************************************************************************************************

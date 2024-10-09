@@ -55,12 +55,11 @@ public class CourseStudentRepositoryImpl implements CourseStudentRepository {
     }
 
     @Override
-    public boolean deleteCourse(int courseId, long studentId) throws SQLException {
+    public boolean deleteCourse(int courseId, long studentId,String nationalCode) throws SQLException {
         PreparedStatement pst1 = database.getDatabaseConnection().prepareStatement(DELETE_COURSE_STUDENT);
         pst1.setInt(1, courseId);
         pst1.setLong(2, studentId);
-
-
+        pst1.setString(3, nationalCode);
 
         pst1.executeUpdate();
         PreparedStatement pst2 = database.getDatabaseConnection().prepareStatement(FIND_EXAM_STUDENT);

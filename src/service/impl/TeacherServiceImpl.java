@@ -1,8 +1,10 @@
 package service.impl;
 
 import model.Teacher;
+import model.dto.CourseDto;
 import repository.TeacherRepository;
 import service.TeacherService;
+import util.ApplicationContext;
 import util.SecurityContext;
 
 import java.sql.SQLException;
@@ -21,9 +23,9 @@ public class TeacherServiceImpl implements TeacherService {
     public void printAllTeacherList() {
         try {
             List<Teacher> teachers = tr.getAllTeacher();
-            System.out.printf("\u001B[35m"+"%-7s %-13s %-13s %-17s\n", "id", "first name", "last name", "national code");
+            System.out.printf("\u001B[35m"+"%-7s %-17s %-13s %-17s\n", "id", "first name", "last name", "national code");
             for (Teacher teacher : teachers) {
-                System.out.printf("%-7s %-13s %-13s %-17s\n",
+                System.out.printf("%-7s %-17s %-13s %-17s\n",
                         teacher.getTeacherId(),
                         teacher.getFirstName(),
                         teacher.getLastName(),

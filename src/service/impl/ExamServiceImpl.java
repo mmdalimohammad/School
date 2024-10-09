@@ -54,6 +54,7 @@ public class ExamServiceImpl implements ExamService {
         } catch (SQLException sqlException) {
             System.out.println("there is problem with connecting to database");
         }
+        System.out.println("\033[0m");
     }
 
     @Override

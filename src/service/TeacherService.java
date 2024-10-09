@@ -4,6 +4,7 @@ import model.Student;
 import model.Teacher;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface TeacherService {
     void printAllTeacherList();
@@ -14,4 +15,6 @@ public interface TeacherService {
     boolean updateTeacher(String nationalCode ,Teacher newTeacher) throws SQLException;
     Teacher getTeacherNationalCode(String nationalCode)throws SQLException;
     boolean signInTeacher(int teacherId, String nationalCode) throws SQLException;
+
+
 }

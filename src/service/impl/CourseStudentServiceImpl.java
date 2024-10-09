@@ -57,6 +57,6 @@ public class CourseStudentServiceImpl implements CourseStudentService {
         if (course == null) {
             throw new SQLException("Course not found");
         }
-        return csr.deleteCourse(course.getCourseId(), SecurityContext.student.getStudentId());
+        return csr.deleteCourse(course.getCourseId(), SecurityContext.student.getStudentId(),SecurityContext.student.getNationalCode());
     }
 }

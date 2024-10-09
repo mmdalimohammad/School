@@ -38,6 +38,7 @@ public class RunnerStudent {
                 Student();
                 break;
             case 5:
+                Runner.admin();
 
         }
 

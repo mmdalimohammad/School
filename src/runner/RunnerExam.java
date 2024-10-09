@@ -32,11 +32,11 @@ public class RunnerExam {
                 Exam();
                 break;
             case 4:
-
+                showAllExam();
                 Exam();
                 break;
             case 5:
-
+                Runner.admin();
         }
     }
     private static void removeExam(){

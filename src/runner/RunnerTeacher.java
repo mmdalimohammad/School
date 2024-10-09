@@ -34,7 +34,7 @@ public class RunnerTeacher {
                 Teacher();
                 break;
             case 5:
-
+                Runner.admin();
         }
 
 
@@ -66,7 +66,7 @@ public class RunnerTeacher {
         }
     }
 
-    private static void updateTeacher() {
+    public static void updateTeacher() {
         System.out.println("enter a national Code:");
         String nationalCode = sc.nextLine();
         try {
@@ -89,7 +89,9 @@ public class RunnerTeacher {
         ApplicationContext.getTeacherService().printAllTeacherList();
     }
 
-
+    public static void showMyTeacher() {
+        ApplicationContext.getTeacherService().showMyTeacher();
+    }
 
 
 
