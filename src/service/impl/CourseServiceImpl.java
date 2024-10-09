@@ -26,11 +26,12 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public boolean updateCourse(String title,Course newcourse) throws SQLException {
-        if (cr.getCourseByTitle(title) == null || newcourse == null) {
+        Course course= cr.getCourseByTitle(title);
+        if (course == null || newcourse == null) {
             throw new IllegalArgumentException("Course is null");
         }else {
+            newcourse.setCourseId(course.getCourseId());
            return cr.updateCourse(newcourse);
-
         }
     }
 

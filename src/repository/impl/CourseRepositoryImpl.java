@@ -41,9 +41,17 @@ public class CourseRepositoryImpl implements CourseRepository {
 
     @Override
     public boolean deleteCourse(Course course) throws SQLException {
+
+        PreparedStatement pst1=database.getDatabaseConnection().prepareStatement(REMOVE_EXAM_COURSE);
+        pst1.setInt(1, course.getCourseId());
+        pst1.executeUpdate();
+        PreparedStatement pst2=database.getDatabaseConnection().prepareStatement(REMOVE_COURSE_STUDENT_COURSE);
+        pst2.setInt(1, course.getCourseId());
+        pst2.executeUpdate();
         PreparedStatement pst=database.getDatabaseConnection().prepareStatement(REMOVE_COURSE_DATA);
         pst.setInt(1, course.getCourseId());
-        return pst.executeUpdate() > 0;
+        pst.executeUpdate();
+        return true;
     }
 
     @Override

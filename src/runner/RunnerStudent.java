@@ -51,7 +51,8 @@ public class RunnerStudent {
         String lastName = sc.nextLine();
         System.out.println("enter a national Code:");
         String nationalCode = sc.next();
-        System.out.println("enter a birthDate:");
+        System.out.println("enter a birthDate (2000-01-01):");
+        sc.nextLine();
         String birthDate = sc.nextLine();
         int year = Integer.parseInt(birthDate.substring(0, 4));
         int month = Integer.parseInt(birthDate.substring(5, 7));
@@ -90,14 +91,10 @@ public class RunnerStudent {
             String firstName = sc.nextLine();
             System.out.println("enter last name:");
             String lastName = sc.nextLine();
-            System.out.println("enter a birthDate -> (2000-01-01):");
-            String birthDate = sc.nextLine();
-            int year = Integer.parseInt(birthDate.substring(0, 4));
-            int month = Integer.parseInt(birthDate.substring(5, 7));
-            int day = Integer.parseInt(birthDate.substring(8, 10));
             System.out.println("enter a national Code:");
             String nationalCode1 = sc.nextLine();
-            ApplicationContext.getStudentService().updateStudent(nationalCode1, new Student(firstName, lastName, LocalDate.of(year, month, day), nationalCode1));
+                sc.nextLine();
+            ApplicationContext.getStudentService().updateStudent(nationalCode, new Student(firstName, lastName,nationalCode1 ));
             System.out.println("dune update Student");
         } catch (Exception exception) {
             System.out.println(exception.getMessage());

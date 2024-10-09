@@ -84,7 +84,6 @@ public class StudentServiceImpl implements StudentService {
             throw new IllegalArgumentException("student is null");
         }else {
             return sr.updateStudent(newStudent);
-
         }
     }
 

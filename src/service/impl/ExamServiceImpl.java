@@ -27,9 +27,11 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public boolean updateExam(String name, Exam newExam) throws SQLException {
-        if (er.getExamByName(name) == null || newExam == null) {
+        Exam exam = er.getExamByName(name);
+        if (exam == null || newExam == null) {
             throw new IllegalArgumentException("exam is null");
         } else {
+
             return er.updateExam(newExam);
         }
     }

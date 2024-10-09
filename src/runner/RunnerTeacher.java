@@ -3,6 +3,7 @@ package runner;
 import model.Teacher;
 import util.ApplicationContext;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class RunnerTeacher {
@@ -44,9 +45,16 @@ public class RunnerTeacher {
         String firstName = sc.nextLine();
         System.out.println("enter a last name:");
         String lastName = sc.nextLine();
+        System.out.println("enter a birth date:");
+        String birthDate = sc.nextLine();
+        int year = Integer.parseInt(birthDate.substring(0, 4));
+        int month = Integer.parseInt(birthDate.substring(5, 7));
+        int day = Integer.parseInt(birthDate.substring(8, 10));
         System.out.println("enter a national Code:");
         String nationalCode = sc.next();
-        Teacher teacher = new Teacher(firstName, lastName, nationalCode);
+        System.out.println("enter a course id");
+        int courseId = sc.nextInt();
+        Teacher teacher = new Teacher(firstName, lastName, LocalDate.of(year,month,day),nationalCode,courseId);
         try {
             ApplicationContext.getTeacherService().createTeacher(teacher);
             System.out.println("dune add teacher");

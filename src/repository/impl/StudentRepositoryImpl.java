@@ -52,13 +52,11 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public boolean createStudent(Student student) throws SQLException {
-
         PreparedStatement pst = database.getDatabaseConnection().prepareStatement(ADD_STUDENT_DATA);
         pst.setString(1, student.getFirstName());
         pst.setString(2, student.getLastName());
         pst.setDate(3, Date.valueOf(student.getDob()));
         pst.setString(4, student.getNationalCode());
-        ;
         return pst.executeUpdate() > 0;
     }
 
@@ -93,8 +91,7 @@ public class StudentRepositoryImpl implements StudentRepository {
         PreparedStatement pst = database.getDatabaseConnection().prepareStatement(UPDATE_STUDENT_DATA);
         pst.setString(1, student.getFirstName());
         pst.setString(2, student.getLastName());
-        pst.setDate(2, Date.valueOf(student.getDob()));
-        pst.setString(4, student.getNationalCode());
+        pst.setString(3, student.getNationalCode());
         pst.executeUpdate();
         return true;
     }

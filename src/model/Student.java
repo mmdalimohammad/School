@@ -26,6 +26,11 @@ public class Student {
     public Student() {
     }
 
+    public Student(String firstName, String lastName, LocalDate dob) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dob = dob;
+    }
 
     public Student(long studentId, String nationalCode) {
         this.studentId = studentId;
@@ -47,6 +52,11 @@ public class Student {
         this.nationalCode = nationalCode;
     }
 
+    public Student(String firstName, String lastName, String nationalCode) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nationalCode = nationalCode;
+    }
 
     public long getStudentId() {
         return studentId;

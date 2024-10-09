@@ -48,7 +48,7 @@ public class RunnerCourse {
         System.out.println("enter a unit");
         int unit = sc.nextInt();
         sc.nextLine();
-        System.out.println("enter a Date (2000-01-01): ");
+        System.out.println("enter a exam Date (2000-01-01): ");
         String date = sc.nextLine();
         int year = Integer.parseInt(date.substring(0, 4));
         int month = Integer.parseInt(date.substring(5, 7));

@@ -4,9 +4,11 @@ import model.Teacher;
 import repository.TeacherRepository;
 import data.Database;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import static data.Query.*;
@@ -55,7 +57,9 @@ public class TeacherRepositoryImpl implements TeacherRepository {
         PreparedStatement pst =database.getDatabaseConnection().prepareStatement(ADD_TEACHER_DATA);
         pst.setString(1, teacher.getFirstName());
         pst.setString(2, teacher.getLastName());
-        pst.setString(3, teacher.getNationalCode());
+        pst.setDate(3, Date.valueOf(teacher.getDob()));
+        pst.setString(4, teacher.getNationalCode());
+        pst.setInt(5,teacher.getCourseID());
         pst.executeUpdate();
         return true;
     }

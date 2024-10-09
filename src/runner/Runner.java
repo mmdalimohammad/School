@@ -65,6 +65,7 @@ public class Runner {
             String password = sc.next();
             if (ApplicationContext.getAdminService().login(username, password)) {
                 System.out.println("\u001B[34m"+"Admin sign in success");
+                System.out.print("\033[0m");
                 admin();
             }else {
                 System.out.println("\u001B[37m"+"**"+"\u001B[31m"+"Password or username is wrong"+"\u001B[37m"+"**");
@@ -131,6 +132,10 @@ public class Runner {
             if (ApplicationContext.getStudentService().signInStudent(id, nationalCode)) {
                 System.out.println("student sign in success");
                 student();
+            }else {
+                System.out.println("\u001B[31m"+"id or national Code is wrong");
+                System.out.print("\033[0m");
+                signInStudent();
             }
         } catch (Exception exception) {
             System.out.println(exception.getMessage());

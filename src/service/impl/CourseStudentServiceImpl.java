@@ -32,10 +32,15 @@ public class CourseStudentServiceImpl implements CourseStudentService {
     @Override
     public boolean addCourse(String courseTitle) throws SQLException {
         Course course = cr.getCourseByTitle(courseTitle);
+
         if (course == null) {
             throw new SQLException("Course not found");
         }
-        return csr.addCourse(course.getCourseId(), SecurityContext.student.getStudentId(), SecurityContext.student.getNationalCode());
+        if (csr.getCountCourseStudent(course.getCourseId(), SecurityContext.student.getStudentId())==0) {
+            return csr.addCourse(course.getCourseId(), SecurityContext.student.getStudentId(), SecurityContext.student.getNationalCode());
+        } else {
+            throw new SQLException("Course not found");
+        }
     }
 
     public void showMyCourses() {
@@ -57,6 +62,6 @@ public class CourseStudentServiceImpl implements CourseStudentService {
         if (course == null) {
             throw new SQLException("Course not found");
         }
-        return csr.deleteCourse(course.getCourseId(), SecurityContext.student.getStudentId(),SecurityContext.student.getNationalCode());
+        return csr.deleteCourse(course.getCourseId(), SecurityContext.student.getStudentId(), SecurityContext.student.getNationalCode());
     }
 }

@@ -25,6 +25,14 @@ public class Teacher {
     public Teacher() {
     }
 
+    public Teacher(String firstName, String lastName, LocalDate dob, String nationalCode, int courseID) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dob = dob;
+        this.nationalCode = nationalCode;
+        this.courseID = courseID;
+    }
+
     public Teacher(String firstName, String lastName, String nationalCode) {
         this.firstName = firstName;
         this.lastName = lastName;

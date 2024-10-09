@@ -13,6 +13,7 @@ import java.util.List;
 
 import static data.Query.*;
 
+
 public class CourseStudentRepositoryImpl implements CourseStudentRepository {
     private Database database = new Database();
 
@@ -72,6 +73,22 @@ public class CourseStudentRepositoryImpl implements CourseStudentRepository {
         }
         return true;
     }
+
+    @Override
+    public int getCountCourseStudent(int courseId,long studentId) throws SQLException {
+
+        PreparedStatement preparedStatement = database.getDatabaseConnection().prepareStatement(GET_COUNT_COURSE_STUDENT);
+        preparedStatement.setInt(1, courseId);
+        preparedStatement.setLong(2, studentId);
+        ResultSet rs = preparedStatement.executeQuery();
+        if (rs.next()) {
+            return  rs.getInt("count");
+        }
+
+
+     return 0;
+    }
+
     static List<CourseDto> getCourseDtos(ResultSet rs) throws SQLException {
         List<CourseDto> courses = new ArrayList<>();
         while (rs.next()) {
