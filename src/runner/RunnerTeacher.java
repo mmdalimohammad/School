@@ -89,9 +89,6 @@ public class RunnerTeacher {
         ApplicationContext.getTeacherService().printAllTeacherList();
     }
 
-    public static void showMyTeacher() {
-        ApplicationContext.getTeacherService().showMyTeacher();
-    }
 
 
 

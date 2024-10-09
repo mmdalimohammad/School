@@ -187,7 +187,7 @@ public class Runner {
 
                 break;
             case 2:
-                RunnerTeacher.showMyTeacher();
+
                 break;
             case 3:
                 RunnerTeacher.updateTeacher();
