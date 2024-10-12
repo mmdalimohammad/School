@@ -187,24 +187,25 @@ public class Runner {
         System.out.println("1 - show My Students");
         System.out.println("2 - Grading the student ");
         System.out.println("3 - edit information");
-        System.out.println("4 - return to last page");
+        System.out.println("4 - show My information");
+        System.out.println("5 - return to last page");
         System.out.println("enter a number");
         int number = sc.nextInt();
         switch (number) {
             case 1:
                 RunnerTeacher.showMyStudent();
-                break;
+                teacher();
             case 2:
-
-                break;
+                RunnerTeacher.addScore();
+                teacher();
             case 3:
                 RunnerTeacher.updateTeacher();
-                break;
-            case 4:
-                return;
-
+                teacher();
+                case 4:
+                RunnerTeacher.showMyInformation();
+            case 5:
+                signInStAndTe();
         }
-
     }
 
 

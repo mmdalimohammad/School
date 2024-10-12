@@ -1,8 +1,10 @@
 package service.impl;
 
+import model.Student;
 import model.Teacher;
 import model.dto.StudentDto;
 import repository.BaseRepository;
+import repository.StudentRepository;
 import repository.TeacherRepository;
 import service.TeacherService;
 import util.SecurityContext;
@@ -14,9 +16,12 @@ public class TeacherServiceImpl implements TeacherService {
 
 
     private TeacherRepository tr;
+    private StudentRepository sr;
 
-    public TeacherServiceImpl(TeacherRepository tr) {
+
+    public TeacherServiceImpl(TeacherRepository tr, StudentRepository sr) {
         this.tr = tr;
+        this.sr = sr;
     }
 
     @Override
@@ -93,9 +98,9 @@ public class TeacherServiceImpl implements TeacherService {
     public void printAllStudent() {
         try {
             List<StudentDto> studentDto = tr.getAllStudent();
-            System.out.printf("\u001B[35m" + "%-7s %-17s %-13s %-17s\n", "id", "full name", "national code", "score");
+            System.out.printf("\u001B[35m" + "%-7s %-17s %-20s %-17s\n", "id", "full name", "national code", "score");
             for (StudentDto student : studentDto) {
-                System.out.printf("%-7s %-17s %-13s %-17s\n",
+                System.out.printf("%-7s %-17s %-20s %-17s\n",
                         student.getStudentId(),
                         student.getFullName(),
                         student.getNationalCode(),
@@ -106,6 +111,18 @@ public class TeacherServiceImpl implements TeacherService {
         }
         System.out.println("\033[0m");
     }
+
+    @Override
+    public boolean addScore(String nationalCode, double score) throws SQLException {
+        Student student = sr.getByNationalCode(nationalCode);
+        if (student == null) {
+            throw new IllegalArgumentException("student not found");
+        } else if (score > 20.0 || score < 0.0) {
+            throw new IllegalArgumentException("Avg score cannot be more than 20.0 or less than 0.0");
+        }
+        return tr.addScore(nationalCode, score);
+    }
+
 
 
 }

@@ -1,7 +1,9 @@
 package runner;
 
 import model.Teacher;
+import model.dto.StudentDto;
 import util.ApplicationContext;
+import util.SecurityContext;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -102,6 +104,36 @@ public class RunnerTeacher {
         ApplicationContext.getTeacherService().printAllStudent();
     }
 
+    public static void addScore(){
+        try {
+            System.out.println("enter a score:");
+            double score = sc.nextDouble();
+            System.out.println("enter national code");
+            String nationalCode = sc.nextLine();
+            nationalCode = (sc.nextLine());
+            ApplicationContext.getTeacherService().addScore(nationalCode,score);
+            System.out.println("dune add score");
+        }catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
 
+    }
+
+    public static void showMyInformation(){
+        try {
+
+            Teacher teacher=ApplicationContext.getTeacherService().getNationalCode(SecurityContext.teacher.getNationalCode());
+            System.out.printf("\u001B[35m" + "%-7s %-17s %-13s %-17s\n", "id", "first name", "last name", "national code");
+                System.out.printf("%-7s %-17s %-13s %-17s\n",
+                        teacher.getTeacherId(),
+                        teacher.getFirstName(),
+                        teacher.getLastName(),
+                        teacher.getNationalCode());
+
+        }catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
+        System.out.println("\033[0m");
+    }
 
 }

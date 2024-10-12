@@ -120,4 +120,13 @@ public class TeacherRepositoryImpl implements TeacherRepository {
         }
         return students;
     }
+
+    @Override
+    public boolean addScore(String nationalCode, double score) throws SQLException {
+        PreparedStatement pst=getPreparedStatement(GET_ADD_SCORE);
+        pst.setDouble(1, score);
+        pst.setString(2,nationalCode);
+        pst.executeUpdate();
+        return true;
+    }
 }
