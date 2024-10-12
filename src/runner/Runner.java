@@ -97,7 +97,7 @@ public class Runner {
                 signInTeacher();
                 break;
             case 3:
-                return;
+                run();
         }
     }
 
@@ -174,7 +174,7 @@ public class Runner {
                 student();
                 break;
             case 6:
-                return;
+                signInStAndTe();
         }
 
     }
