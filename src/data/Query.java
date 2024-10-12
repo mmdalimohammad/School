@@ -8,8 +8,7 @@ public class Query {
     public static final String GET_STUDENT_BY_ID_NATIONAL_CODE = "select *\n" + "from students\n" + "where student_id = ? and national_code = ?";
     //language=sql
     public static final String GET_ALL_STUDENT_QUERY = "SELECT * FROM students ";
-    //language=sql
-    public static final String GET_COUNT_OF_STUDENT = "select  count(*) from students ";
+
     //language=sql
     public static final String REMOVE_STUDENTS_DATA = "DELETE FROM students WHERE student_id = ?";
     //language=sql
@@ -31,12 +30,15 @@ public class Query {
     public static final String DELETE_EXAM_STUDENT = "delete from exams_students where exam_id = ?";
     //language=sql
     public static final String GET_COUNT_COURSE_STUDENT = "select count(*) from courses_students where   course_id =? and student_id=? ";
+    //language=sql
+    public static final String REMOVE_COURSE_STUDENT_ID = "DELETE FROM courses_students WHERE student_id = ?";
+    //language=sql
+    public static final String REMOVE_EXAM_STUDENT_ID = "DELETE FROM exams_students WHERE student_id = ?";
     //******************************************************************************************************************************************
 
     //language=sql
     public static final String GET_ALL_TEACHER_QUERY = "select * from teachers";
-    //language=sql
-    public static final String GET_COUNT_OF_TEACHER = "select  count(*) from teachers";
+
     //language=sql
     public static final String ADD_TEACHER_DATA = "INSERT INTO teachers (first_name, last_name, dob,national_code,course_id) VALUES (?,?,?,?,?)";
     //language=sql
@@ -47,6 +49,8 @@ public class Query {
     public static final String UPDATE_TEACHER_DATA = "UPDATE teachers SET first_name =? ,last_name=? WHERE national_code = ?";
     //language=sql
     public static final String GET_TEACHER_BY_ID_NATIONAL_CODE = "select *\n" + "from teachers\n" + "where teacher_id = ? and national_code = ?";
+    //language=sql
+    public static final String GET_USER_STUDENT="select s.student_id,concat( s.first_name,' ' ,s.last_name) as full_name, s.national_code, s.gpu from teachers t join courses_students cs on t.course_id = cs.course_id join students s on cs.student_id = s.student_id where t.teacher_id = ? ";
 
 
     //******************************************************************************************************************************************
@@ -72,6 +76,7 @@ public class Query {
     public static final String REMOVE_EXAM_COURSE = "DELETE FROM exams WHERE course_id = ?";
     //language=sql
     public static final String REMOVE_COURSE_STUDENT_COURSE = "DELETE FROM courses_students WHERE course_id = ?";
+
 
     //******************************************************************************************************************************************
 

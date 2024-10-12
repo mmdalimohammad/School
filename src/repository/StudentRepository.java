@@ -5,13 +5,21 @@ import model.Student;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface StudentRepository {
-    List<Student> getAllStudents()throws SQLException;
-    int getCountOfStudent()throws SQLException;
-    boolean createStudent(Student student)throws SQLException;
-    boolean removeStudent(Student student)throws SQLException;
-    Student getStudentByNationalCode(String nationalCode)throws SQLException;
-    boolean updateStudent(Student student)throws SQLException;
-    Student getStudentByIdAndNationalCode(int id, String nationalCode) throws SQLException;
+public interface StudentRepository extends BaseRepository<Student> {
+
+    Student getByNationalCode(String nationalCode)throws SQLException;
+    Student getByIdAndNationalCode(int id, String nationalCode) throws SQLException;
+
+    @Override
+    List<Student> getAll() throws SQLException;
+
+    @Override
+    boolean add(Student student) throws SQLException;
+
+    @Override
+    boolean remove(Student student) throws SQLException;
+
+    @Override
+    boolean update(Student student) throws SQLException;
 
 }

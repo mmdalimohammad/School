@@ -1,6 +1,6 @@
 package repository.impl;
 
-import data.Database;
+
 import model.dto.CourseDto;
 import repository.CourseStudentRepository;
 import util.SecurityContext;
@@ -12,38 +12,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static data.Query.*;
-
+import static data.Database.*;
 
 public class CourseStudentRepositoryImpl implements CourseStudentRepository {
-    private Database database = new Database();
+
 
 
 
     @Override
     public List<CourseDto> getCourses() throws SQLException {
-        PreparedStatement pst =database.getDatabaseConnection().prepareStatement(GET_USER_COURSES);
+        PreparedStatement pst =getPreparedStatement(GET_USER_COURSES);
         pst.setLong(1, SecurityContext.student.getStudentId());
         ResultSet rs = pst.executeQuery();
         return getCourseDtos(rs);
     }
     @Override
     public boolean addCourse(int courseId, long studentId,String national_cod) throws SQLException {
-        // Insert into courses_students
-        PreparedStatement pst1 =database.getDatabaseConnection().prepareStatement(ADD_COURSE_STUDENT);
+        PreparedStatement pst1 =getPreparedStatement(ADD_COURSE_STUDENT);
         pst1.setInt(1, courseId);
         pst1.setLong(2, studentId);
         pst1.setString(3,national_cod);
         pst1.executeUpdate();
 
-
-        // Find exam_id for the student
-        PreparedStatement pst2 =database.getDatabaseConnection().prepareStatement(FIND_EXAM_STUDENT);
+        PreparedStatement pst2 =getPreparedStatement(FIND_EXAM_STUDENT);
         pst2.setLong(1, studentId);
         ResultSet rs = pst2.executeQuery();
 
-        // Insert into exams_students
         if (rs.next()) {
-            PreparedStatement pst3 =database.getDatabaseConnection().prepareStatement(ADD_EXAM_STUDENT);
+            PreparedStatement pst3 =getPreparedStatement(ADD_EXAM_STUDENT);
             pst3.setInt(1, rs.getInt("exam_id"));
             pst3.setLong(2, studentId);
             pst3.setString(3, national_cod);
@@ -57,17 +53,17 @@ public class CourseStudentRepositoryImpl implements CourseStudentRepository {
 
     @Override
     public boolean deleteCourse(int courseId, long studentId,String nationalCode) throws SQLException {
-        PreparedStatement pst1 = database.getDatabaseConnection().prepareStatement(DELETE_COURSE_STUDENT);
+        PreparedStatement pst1 = getPreparedStatement(DELETE_COURSE_STUDENT);
         pst1.setInt(1, courseId);
         pst1.setLong(2, studentId);
         pst1.setString(3, nationalCode);
 
         pst1.executeUpdate();
-        PreparedStatement pst2 = database.getDatabaseConnection().prepareStatement(FIND_EXAM_STUDENT);
+        PreparedStatement pst2 = getPreparedStatement(FIND_EXAM_STUDENT);
         pst2.setInt(1, courseId);
         ResultSet rs = pst2.executeQuery();
         if (rs.next()) {
-            PreparedStatement pst3 = database.getDatabaseConnection().prepareStatement(DELETE_EXAM_STUDENT);
+            PreparedStatement pst3 = getPreparedStatement(DELETE_EXAM_STUDENT);
             pst3.setInt(1, rs.getInt("exam_id"));
             pst3.executeUpdate();
         }
@@ -77,15 +73,13 @@ public class CourseStudentRepositoryImpl implements CourseStudentRepository {
     @Override
     public int getCountCourseStudent(int courseId,long studentId) throws SQLException {
 
-        PreparedStatement preparedStatement = database.getDatabaseConnection().prepareStatement(GET_COUNT_COURSE_STUDENT);
+        PreparedStatement preparedStatement =getPreparedStatement(GET_COUNT_COURSE_STUDENT);
         preparedStatement.setInt(1, courseId);
         preparedStatement.setLong(2, studentId);
         ResultSet rs = preparedStatement.executeQuery();
         if (rs.next()) {
             return  rs.getInt("count");
         }
-
-
      return 0;
     }
 

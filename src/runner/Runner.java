@@ -1,6 +1,7 @@
 package runner;
 
 import util.ApplicationContext;
+import util.Utility;
 
 import java.util.Scanner;
 
@@ -63,6 +64,7 @@ public class Runner {
             String username = sc.next();
             System.out.println("\u001B[34m"+"enter your password:");
             String password = sc.next();
+            Utility.generateRandomCode();
             if (ApplicationContext.getAdminService().login(username, password)) {
                 System.out.println("\u001B[34m"+"Admin sign in success");
                 System.out.print("\033[0m");
@@ -129,6 +131,7 @@ public class Runner {
             System.out.println("enter national code: ");
             String nationalCode = sc.nextLine();
             nationalCode = (sc.nextLine());
+            Utility.generateRandomCode();
             if (ApplicationContext.getStudentService().signInStudent(id, nationalCode)) {
                 System.out.println("student sign in success");
                 student();
@@ -182,14 +185,14 @@ public class Runner {
     public static void teacher() {
 
         System.out.println("1 - show My Students");
-        System.out.println("2 - show My course");
+        System.out.println("2 - Grading the student ");
         System.out.println("3 - edit information");
         System.out.println("4 - return to last page");
         System.out.println("enter a number");
         int number = sc.nextInt();
         switch (number) {
             case 1:
-
+                RunnerTeacher.showMyStudent();
                 break;
             case 2:
 

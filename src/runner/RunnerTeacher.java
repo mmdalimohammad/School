@@ -56,7 +56,7 @@ public class RunnerTeacher {
         int courseId = sc.nextInt();
         Teacher teacher = new Teacher(firstName, lastName, LocalDate.of(year,month,day),nationalCode,courseId);
         try {
-            ApplicationContext.getTeacherService().createTeacher(teacher);
+            ApplicationContext.getTeacherService().add(teacher);
             System.out.println("dune add teacher");
         } catch (Exception Exception) {
             System.out.println(Exception.getMessage());
@@ -67,7 +67,7 @@ public class RunnerTeacher {
         System.out.println("enter a national Code:");
         String nationalCode = sc.next();
         try {
-            ApplicationContext.getTeacherService().removeTeacher(nationalCode);
+            ApplicationContext.getTeacherService().remove(nationalCode);
             System.out.println("dune removed teacher");
         } catch (Exception Exception) {
             System.out.println(Exception.getMessage());
@@ -78,7 +78,7 @@ public class RunnerTeacher {
         System.out.println("enter a national Code:");
         String nationalCode = sc.nextLine();
         try {
-            if (ApplicationContext.getTeacherService().getTeacherNationalCode(nationalCode) == null) {
+            if (ApplicationContext.getTeacherService().getNationalCode(nationalCode) == null) {
                 System.out.println("dune update teacher");
                 return;
             }
@@ -86,7 +86,7 @@ public class RunnerTeacher {
             String firstName = sc.nextLine();
             System.out.println("enter last name:");
             String lastName = sc.nextLine();
-            ApplicationContext.getTeacherService().updateTeacher(nationalCode, new Teacher(firstName, lastName, nationalCode));
+            ApplicationContext.getTeacherService().update(nationalCode, new Teacher(firstName, lastName, nationalCode));
             System.out.println("dune update teacher");
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
@@ -94,10 +94,13 @@ public class RunnerTeacher {
     }
 
     private static void showAllTeacher() {
-        ApplicationContext.getTeacherService().printAllTeacherList();
+        ApplicationContext.getTeacherService().printAllList();
     }
 
 
+    public static void showMyStudent() {
+        ApplicationContext.getTeacherService().printAllStudent();
+    }
 
 
 

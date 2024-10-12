@@ -6,12 +6,12 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 public interface StudentService {
-    void printAllStudentList();
-    void printCountOfStudent();
-    Student generateStudent(String firstName, String lastName, LocalDate dob , String nationality) throws SQLException;
-    boolean createStudent(Student student) throws SQLException;
-    boolean removeStudent(String nationalCode)throws SQLException;
-    boolean updateStudent(String nationalCode,Student newStudent)throws SQLException;
-    Student getStudentNationalCode(String nationalCode)throws SQLException;
+    void printAllList();
+
+    Student generate(String firstName, String lastName, LocalDate dob , String nationality) throws SQLException;
+    boolean add(Student student) throws SQLException;
+    boolean remove(String nationalCode)throws SQLException;
+    boolean update(String nationalCode, Student newStudent)throws SQLException;
+    Student getNationalCode(String nationalCode)throws SQLException;
     boolean signInStudent(int studentId, String nationalCode) throws SQLException;
 }

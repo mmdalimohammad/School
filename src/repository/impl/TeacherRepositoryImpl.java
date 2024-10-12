@@ -1,28 +1,26 @@
 package repository.impl;
 
 import model.Teacher;
+import model.dto.StudentDto;
+import repository.BaseRepository;
 import repository.TeacherRepository;
-import data.Database;
+import util.SecurityContext;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import static data.Query.*;
+import static data.Database.*;
 
 public class TeacherRepositoryImpl implements TeacherRepository {
-    //language=sql
-
-
-
-    private Database database = new Database();
 
     @Override
-    public List<Teacher> getAllTeacher() throws SQLException {
-        ResultSet teacherResult = database.getSqlStatement().executeQuery(GET_ALL_TEACHER_QUERY);
+    public List<Teacher> getAll() throws SQLException {
+        PreparedStatement pst = getPreparedStatement(GET_ALL_TEACHER_QUERY);
+        ResultSet teacherResult = pst.executeQuery();
         List<Teacher> teachers = new ArrayList<>();
         while (teacherResult.next()) {
             Teacher teacher = new Teacher(
@@ -39,22 +37,9 @@ public class TeacherRepositoryImpl implements TeacherRepository {
     }
 
 
-
-
-
     @Override
-    public int getCountOfTeacher() throws SQLException {
-        ResultSet countResult = database.getSqlStatement().executeQuery(GET_COUNT_OF_TEACHER);
-        int teacherCount = 0;
-        while (countResult.next()) {
-            teacherCount = countResult.getInt("count");
-        }
-        return teacherCount;
-    }
-
-    @Override
-    public boolean createTeacher(Teacher teacher) throws SQLException {
-        PreparedStatement pst =database.getDatabaseConnection().prepareStatement(ADD_TEACHER_DATA);
+    public boolean add(Teacher teacher) throws SQLException {
+        PreparedStatement pst =getPreparedStatement(ADD_TEACHER_DATA);
         pst.setString(1, teacher.getFirstName());
         pst.setString(2, teacher.getLastName());
         pst.setDate(3, Date.valueOf(teacher.getDob()));
@@ -65,16 +50,18 @@ public class TeacherRepositoryImpl implements TeacherRepository {
     }
 
     @Override
-    public boolean removeTeacher(Teacher teacher) throws SQLException {
-        PreparedStatement pst=database.getDatabaseConnection().prepareStatement(REMOVE_TEACHER_DATA);
+    public boolean remove(Teacher teacher) throws SQLException {
+        PreparedStatement pst=getPreparedStatement(REMOVE_TEACHER_DATA);
         pst.setLong(1,teacher.getTeacherId());
         pst.executeUpdate();
         return true;
     }
 
+
+
     @Override
-    public Teacher getTeacherByNationalCode(String nationalCode) throws SQLException {
-        PreparedStatement pst=database.getDatabaseConnection().prepareStatement(GET_TEACHER_FIND_BY_NATIONAL_CODE);
+    public Teacher getByNationalCode(String nationalCode) throws SQLException {
+        PreparedStatement pst=getPreparedStatement(GET_TEACHER_FIND_BY_NATIONAL_CODE);
         pst.setString(1,nationalCode);
         ResultSet resultSet=pst.executeQuery();
         if (resultSet.next()) {
@@ -89,8 +76,8 @@ public class TeacherRepositoryImpl implements TeacherRepository {
     }
 
     @Override
-    public boolean updateTeacher(Teacher teacher) throws SQLException {
-        PreparedStatement pst=database.getDatabaseConnection().prepareStatement(UPDATE_TEACHER_DATA);
+    public boolean update(Teacher teacher) throws SQLException {
+        PreparedStatement pst=getPreparedStatement(UPDATE_TEACHER_DATA);
         pst.setString(1,teacher.getFirstName());
         pst.setString(2,teacher.getLastName());
         pst.setString(3,teacher.getNationalCode());
@@ -99,8 +86,8 @@ public class TeacherRepositoryImpl implements TeacherRepository {
     }
 
     @Override
-    public Teacher getTeacherByIdAndNationalCode(int id, String nationalCode) throws SQLException {
-        PreparedStatement pst=database.getDatabaseConnection().prepareStatement(GET_TEACHER_BY_ID_NATIONAL_CODE);
+    public Teacher getByIdAndNationalCode(int id, String nationalCode) throws SQLException {
+        PreparedStatement pst=getPreparedStatement(GET_TEACHER_BY_ID_NATIONAL_CODE);
         pst.setLong(1,id);
         pst.setString(2,nationalCode);
         ResultSet rt=pst.executeQuery();
@@ -114,5 +101,23 @@ public class TeacherRepositoryImpl implements TeacherRepository {
             );
         }
         return null;
+    }
+
+    @Override
+    public List<StudentDto> getAllStudent() throws SQLException {
+        PreparedStatement pst=getPreparedStatement(GET_USER_STUDENT);
+        pst.setLong(1, SecurityContext.teacher.getTeacherId());
+        ResultSet rs=pst.executeQuery();
+        List<StudentDto> students = new ArrayList<>();
+        while (rs.next()) {
+            students.add(new StudentDto(
+                    rs.getInt("student_id"),
+                    rs.getString("full_name"),
+                    rs.getString("national_Code"),
+                    rs.getDouble("gpu")
+            ));
+
+        }
+        return students;
     }
 }

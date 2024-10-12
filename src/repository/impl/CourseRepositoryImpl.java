@@ -1,6 +1,6 @@
 package repository.impl;
 
-import data.Database;
+
 
 import model.Course;
 import model.dto.CourseDto;
@@ -12,16 +12,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import static data.Query.*;
+import static data.Database.*;
 
 public class CourseRepositoryImpl implements CourseRepository {
 
-    private Database database = new Database();
+
 
 
 
     @Override
     public Course addCourse(Course course) throws SQLException {
-        PreparedStatement pst = database.getDatabaseConnection().prepareStatement(ADD_NEW_COURSE_DATA);
+        PreparedStatement pst =getPreparedStatement(ADD_NEW_COURSE_DATA);
         pst.setString(1, course.getCourseTitle());
         pst.setInt(2, course.getCourseUnit());
         pst.executeUpdate();
@@ -32,7 +33,7 @@ public class CourseRepositoryImpl implements CourseRepository {
 
     @Override
     public boolean updateCourse(Course course) throws SQLException {
-        PreparedStatement pst= database.getDatabaseConnection().prepareStatement(UPDATE_COURSE_DATA);
+        PreparedStatement pst= getPreparedStatement(UPDATE_COURSE_DATA);
         pst.setString(1, course.getCourseTitle());
         pst.setInt(2, course.getCourseUnit());
         pst.setInt(3, course.getCourseId());
@@ -42,13 +43,13 @@ public class CourseRepositoryImpl implements CourseRepository {
     @Override
     public boolean deleteCourse(Course course) throws SQLException {
 
-        PreparedStatement pst1=database.getDatabaseConnection().prepareStatement(REMOVE_EXAM_COURSE);
+        PreparedStatement pst1=getPreparedStatement(REMOVE_EXAM_COURSE);
         pst1.setInt(1, course.getCourseId());
         pst1.executeUpdate();
-        PreparedStatement pst2=database.getDatabaseConnection().prepareStatement(REMOVE_COURSE_STUDENT_COURSE);
+        PreparedStatement pst2=getPreparedStatement(REMOVE_COURSE_STUDENT_COURSE);
         pst2.setInt(1, course.getCourseId());
         pst2.executeUpdate();
-        PreparedStatement pst=database.getDatabaseConnection().prepareStatement(REMOVE_COURSE_DATA);
+        PreparedStatement pst=getPreparedStatement(REMOVE_COURSE_DATA);
         pst.setInt(1, course.getCourseId());
         pst.executeUpdate();
         return true;
@@ -56,7 +57,8 @@ public class CourseRepositoryImpl implements CourseRepository {
 
     @Override
     public List<Course> getAllCourses() throws SQLException {
-        ResultSet courseResult=database.getSqlStatement().executeQuery(GET_ALL_COURSE);
+        PreparedStatement pst=getPreparedStatement(GET_ALL_COURSE);
+        ResultSet courseResult=pst.executeQuery();
         List<Course> courses=new ArrayList<>();
         while (courseResult.next()) {
             Course course=new Course(
@@ -71,7 +73,7 @@ public class CourseRepositoryImpl implements CourseRepository {
 
     @Override
     public Course getCourseByTitle(String courseTitle) throws SQLException {
-        PreparedStatement pst=database.getDatabaseConnection().prepareStatement(GET_COURSE_FIND_BY_TITLE);
+        PreparedStatement pst=getPreparedStatement(GET_COURSE_FIND_BY_TITLE);
         pst.setString(1, courseTitle);
         ResultSet rs=pst.executeQuery();
         if(rs.next()) {
@@ -86,7 +88,7 @@ public class CourseRepositoryImpl implements CourseRepository {
 
     @Override
     public List<CourseDto> getAllCoursesDto() throws SQLException {
-        PreparedStatement pst=database.getDatabaseConnection().prepareStatement(GET_ALL_COURSE_DTO);
+        PreparedStatement pst=getPreparedStatement(GET_ALL_COURSE_DTO);
         ResultSet rs=pst.executeQuery();
         List<CourseDto> coursesDto=new ArrayList<>();
         while (rs.next()) {

@@ -9,11 +9,15 @@ public class Database {
 
 
 
-    public Connection getDatabaseConnection() throws SQLException {
+    public static Connection getDatabaseConnection() throws SQLException {
         return DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
     }
 
     public Statement getSqlStatement() throws SQLException {
         return this.getDatabaseConnection().createStatement();
+    }
+
+    public static PreparedStatement getPreparedStatement(String sql) throws SQLException {
+        return getDatabaseConnection().prepareStatement(sql);
     }
 }

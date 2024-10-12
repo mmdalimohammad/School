@@ -1,6 +1,7 @@
 package repository.impl;
 
 import model.Student;
+import repository.BaseRepository;
 import repository.StudentRepository;
 import data.Database;
 
@@ -12,18 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 
+import static data.Database.*;
 import static data.Query.*;
 
-public class StudentRepositoryImpl implements StudentRepository {
+public class StudentRepositoryImpl implements StudentRepository{
     //language=sql
 
 
-    private Database database = new Database();
+
 
 
     @Override
-    public List<Student> getAllStudents() throws SQLException {
-        ResultSet studentsResult = database.getSqlStatement().executeQuery(GET_ALL_STUDENT_QUERY);
+    public List<Student> getAll() throws SQLException {
+        PreparedStatement pst =getPreparedStatement(GET_ALL_STUDENT_QUERY);
+        ResultSet studentsResult = pst.executeQuery();
         List<Student> students = new ArrayList<>();
         while (studentsResult.next()) {
             Student student = new Student(
@@ -39,20 +42,12 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
 
-    @Override
-    public int getCountOfStudent() throws SQLException {
-        ResultSet countResult = database.getSqlStatement().executeQuery(GET_COUNT_OF_STUDENT);
-        int studentCount = 0;
-        while (countResult.next()) {
-            studentCount = countResult.getInt("count");
-        }
-        return studentCount;
-    }
+
 
 
     @Override
-    public boolean createStudent(Student student) throws SQLException {
-        PreparedStatement pst = database.getDatabaseConnection().prepareStatement(ADD_STUDENT_DATA);
+    public boolean add(Student student) throws SQLException {
+        PreparedStatement pst = getPreparedStatement(ADD_STUDENT_DATA);
         pst.setString(1, student.getFirstName());
         pst.setString(2, student.getLastName());
         pst.setDate(3, Date.valueOf(student.getDob()));
@@ -61,16 +56,25 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public boolean removeStudent(Student student) throws SQLException {
-        PreparedStatement pst = database.getDatabaseConnection().prepareStatement(REMOVE_STUDENTS_DATA);
+    public boolean remove(Student student) throws SQLException {
+        PreparedStatement pst=getPreparedStatement(REMOVE_COURSE_STUDENT_ID);
         pst.setLong(1, student.getStudentId());
-        int affectedRows = pst.executeUpdate();
+        pst.executeUpdate();
+
+        PreparedStatement pst2=getPreparedStatement(REMOVE_EXAM_STUDENT_ID);
+        pst2.setLong(1, student.getStudentId());
+        pst2.executeUpdate();
+
+
+        PreparedStatement pst1 = getPreparedStatement(REMOVE_STUDENTS_DATA);
+        pst1.setLong(1, student.getStudentId());
+        int affectedRows = pst1.executeUpdate();
         return affectedRows > 0;
     }
 
     @Override
-    public Student getStudentByNationalCode(String nationalCode) throws SQLException {
-        PreparedStatement pst = database.getDatabaseConnection().prepareStatement(GET_STUDENT_FIND_BY_NATIONAL_CODE);
+    public Student getByNationalCode(String nationalCode) throws SQLException {
+        PreparedStatement pst =getPreparedStatement(GET_STUDENT_FIND_BY_NATIONAL_CODE);
         pst.setString(1, nationalCode);
         ResultSet rs = pst.executeQuery();
         if (rs.next()) {
@@ -87,8 +91,8 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public boolean updateStudent(Student student) throws SQLException {
-        PreparedStatement pst = database.getDatabaseConnection().prepareStatement(UPDATE_STUDENT_DATA);
+    public boolean update(Student student) throws SQLException {
+        PreparedStatement pst = getPreparedStatement(UPDATE_STUDENT_DATA);
         pst.setString(1, student.getFirstName());
         pst.setString(2, student.getLastName());
         pst.setString(3, student.getNationalCode());
@@ -97,8 +101,8 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public Student getStudentByIdAndNationalCode(int id, String nationalCode) throws SQLException {
-        PreparedStatement pst = database.getDatabaseConnection().prepareStatement(GET_STUDENT_BY_ID_NATIONAL_CODE);
+    public Student getByIdAndNationalCode(int id, String nationalCode) throws SQLException {
+        PreparedStatement pst = getPreparedStatement(GET_STUDENT_BY_ID_NATIONAL_CODE);
         pst.setInt(1, id);
         pst.setString(2, nationalCode);
         ResultSet rs = pst.executeQuery();

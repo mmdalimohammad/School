@@ -1,11 +1,9 @@
 package runner;
 
 import model.Student;
-import model.dto.CourseDto;
 import util.ApplicationContext;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Scanner;
 
 public class RunnerStudent {
@@ -59,7 +57,7 @@ public class RunnerStudent {
         int day = Integer.parseInt(birthDate.substring(8, 10));
         Student student = new Student(firstName, lastName, LocalDate.of(year, month, day), nationalCode);
         try {
-            ApplicationContext.getStudentService().createStudent(student);
+            ApplicationContext.getStudentService().add(student);
             System.out.println("dune add Student");
         } catch (Exception Exception) {
             System.out.println(Exception.getMessage());
@@ -71,7 +69,7 @@ public class RunnerStudent {
         System.out.println("enter a national Code:");
         String nationalCode = sc.next();
         try {
-            ApplicationContext.getStudentService().removeStudent(nationalCode);
+            ApplicationContext.getStudentService().remove(nationalCode);
             System.out.println("dune removed student");
         } catch (Exception Exception) {
             System.out.println(Exception.getMessage());
@@ -83,7 +81,7 @@ public class RunnerStudent {
         System.out.println("enter a national Code:");
         String nationalCode = sc.nextLine();
         try {
-            if (ApplicationContext.getStudentService().getStudentNationalCode(nationalCode) == null) {
+            if (ApplicationContext.getStudentService().getNationalCode(nationalCode) == null) {
                 System.out.println("dune update Student");
                 return;
             }
@@ -94,14 +92,14 @@ public class RunnerStudent {
             System.out.println("enter a national Code:");
             String nationalCode1 = sc.nextLine();
                 sc.nextLine();
-            ApplicationContext.getStudentService().updateStudent(nationalCode, new Student(firstName, lastName,nationalCode1 ));
+            ApplicationContext.getStudentService().update(nationalCode, new Student(firstName, lastName,nationalCode1 ));
             System.out.println("dune update Student");
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
     }
     private static void showAllStudent() {
-        ApplicationContext.getStudentService().printAllStudentList();
+        ApplicationContext.getStudentService().printAllList();
     }
 
     public static void showMyCourse(){

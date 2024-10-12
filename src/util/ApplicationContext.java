@@ -6,6 +6,7 @@ import service.*;
 import service.impl.*;
 
 public class ApplicationContext {
+
     private static final StudentRepository studentRepository;
     private static final StudentService studentService;
     private static final TeacherRepository teacherRepository;
@@ -20,10 +21,10 @@ public class ApplicationContext {
     private static final AdminService adminService;
 
     static {
-        studentRepository=new StudentRepositoryImpl();
-        studentService=new StudentServiceImpl(studentRepository);
-        teacherRepository=new TeacherRepositoryImpl();
-        teacherService=new TeacherServiceImpl(teacherRepository);
+        studentRepository = new StudentRepositoryImpl();
+        studentService = new StudentServiceImpl(studentRepository);
+        teacherRepository = new TeacherRepositoryImpl();
+        teacherService = new TeacherServiceImpl(teacherRepository);
         courseRepository=new CourseRepositoryImpl();
         courseService=new CourseServiceImpl(courseRepository);
         examRepository=new ExamRepositoryImpl();
