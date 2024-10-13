@@ -89,10 +89,7 @@ public class RunnerStudent {
             String firstName = sc.nextLine();
             System.out.println("enter last name:");
             String lastName = sc.nextLine();
-            System.out.println("enter a national Code:");
-            String nationalCode1 = sc.nextLine();
-                sc.nextLine();
-            ApplicationContext.getStudentService().update(nationalCode, new Student(firstName, lastName,nationalCode1 ));
+            ApplicationContext.getStudentService().update(nationalCode, new Student(firstName, lastName,nationalCode ));
             System.out.println("dune update Student");
         } catch (Exception exception) {
             System.out.println(exception.getMessage());

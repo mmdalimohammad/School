@@ -122,7 +122,7 @@ public class RunnerTeacher {
     public static void showMyInformation(){
         try {
 
-            Teacher teacher=ApplicationContext.getTeacherService().getNationalCode(SecurityContext.teacher.getNationalCode());
+            Teacher teacher=ApplicationContext.getTeacherService().getNationalCode(SecurityContext.teacher.getNationalCode()).get();
             System.out.printf("\u001B[35m" + "%-7s %-17s %-13s %-17s\n", "id", "first name", "last name", "national code");
                 System.out.printf("%-7s %-17s %-13s %-17s\n",
                         teacher.getTeacherId(),

@@ -7,6 +7,8 @@ import repository.ExamRepository;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import static data.Database.*;
 import static data.Query.*;
 
@@ -61,19 +63,21 @@ public class ExamRepositoryImpl implements ExamRepository {
     }
 
     @Override
-    public Exam getExamByName(String ExamName) throws SQLException {
+    public Optional<Exam> getExamByName(String ExamName) throws SQLException {
         PreparedStatement pst=getPreparedStatement(GET_EXAM_FIND_BY_NAME);
         pst.setString(1, ExamName);
         ResultSet rs=pst.executeQuery();
+        Optional<Exam> optionalExam=Optional.empty();
         if(rs.next()){
-            return new Exam(
+            Exam exam=new Exam(
                     rs.getLong("exam_id"),
                     rs.getString("exam_name"),
                     rs.getDate("date").toLocalDate(),
                     rs.getTime("time").toLocalTime(),
                     rs.getInt("course_id")
             );
+            optionalExam=Optional.of(exam);
         }
-        return null;
+        return optionalExam;
     }
 }

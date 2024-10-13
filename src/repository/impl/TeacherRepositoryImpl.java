@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import static data.Query.*;
 import static data.Database.*;
 
@@ -60,19 +62,21 @@ public class TeacherRepositoryImpl implements TeacherRepository {
 
 
     @Override
-    public Teacher getByNationalCode(String nationalCode) throws SQLException {
+    public Optional<Teacher> getByNationalCode(String nationalCode) throws SQLException {
         PreparedStatement pst=getPreparedStatement(GET_TEACHER_FIND_BY_NATIONAL_CODE);
         pst.setString(1,nationalCode);
         ResultSet resultSet=pst.executeQuery();
+        Optional<Teacher> optionalTeacher=Optional.empty();
         if (resultSet.next()) {
-            return new Teacher(
+            Teacher teacher1 =new Teacher(
                     resultSet.getLong("teacher_id"),
                     resultSet.getString("first_name"),
                     resultSet.getString("last_name"),
                     resultSet.getString("national_code")
             );
+            optionalTeacher=Optional.of(teacher1);
         }
-        return null;
+        return optionalTeacher;
     }
 
     @Override
@@ -86,13 +90,14 @@ public class TeacherRepositoryImpl implements TeacherRepository {
     }
 
     @Override
-    public Teacher getByIdAndNationalCode(int id, String nationalCode) throws SQLException {
+    public Optional<Teacher> getByIdAndNationalCode(int id, String nationalCode) throws SQLException {
         PreparedStatement pst=getPreparedStatement(GET_TEACHER_BY_ID_NATIONAL_CODE);
         pst.setLong(1,id);
         pst.setString(2,nationalCode);
         ResultSet rt=pst.executeQuery();
+        Optional<Teacher> optional=Optional.empty();
         if (rt.next()) {
-            return new Teacher(
+           Teacher teacher1 =new Teacher(
                     rt.getLong("teacher_id"),
                     rt.getInt("course_id"),
                     rt.getString("first_name"),
@@ -100,8 +105,9 @@ public class TeacherRepositoryImpl implements TeacherRepository {
                     rt.getDate("dob").toLocalDate(),
                     rt.getString("national_code")
             );
+           optional =Optional.of(teacher1);
         }
-        return null;
+        return optional;
     }
 
     @Override

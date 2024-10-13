@@ -6,6 +6,7 @@ import service.CourseService;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class CourseServiceImpl implements CourseService {
     private CourseRepository cr;
@@ -16,8 +17,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course createCourse(Course course) throws SQLException {
-        if (course == null) {
+    public boolean createCourse(Course course) throws SQLException {
+        if (course==null) {
             throw new SQLException("Course is null");
         }else {
             return cr.addCourse(course);
@@ -26,23 +27,25 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public boolean updateCourse(String title,Course newcourse) throws SQLException {
-        Course course= cr.getCourseByTitle(title);
-        if (course == null || newcourse == null) {
+        Optional<Course>optionalCourse=cr.getCourseByTitle(title);
+
+        if (optionalCourse.isEmpty() || newcourse == null) {
             throw new IllegalArgumentException("Course is null");
         }else {
-            newcourse.setCourseId(course.getCourseId());
+            newcourse.setCourseId(optionalCourse.get().getCourseId());
            return cr.updateCourse(newcourse);
         }
     }
 
     @Override
     public boolean deleteCourse(String title) throws SQLException {
-        return cr.deleteCourse(cr.getCourseByTitle(title));
+        Optional<Course> course = cr.getCourseByTitle(title);
+        return cr.deleteCourse(course.get());
     }
 
     @Override
-    public Course getCourseByTitle(String title) throws SQLException {
-        if (cr.getCourseByTitle(title) == null) {
+    public Optional<Course> getCourseByTitle(String title) throws SQLException {
+        if (cr.getCourseByTitle(title).isPresent()) {
             throw new IllegalArgumentException("Course already exists");
         }else {
             return cr.getCourseByTitle(title);
@@ -66,12 +69,4 @@ public class CourseServiceImpl implements CourseService {
         System.out.println("\033[0m");
     }
 
-    @Override
-    public Course generateCourse(int courseId, String title, int unit) throws SQLException {
-        if (cr.getCourseByTitle(title) == null) {
-            throw new IllegalArgumentException("Course already exists");
-        }else {
-            return new Course(courseId,title,unit);
-        }
-    }
 }

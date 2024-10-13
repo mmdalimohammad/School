@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import static data.Query.*;
 import static data.Database.*;
 
@@ -21,12 +23,12 @@ public class CourseRepositoryImpl implements CourseRepository {
 
 
     @Override
-    public Course addCourse(Course course) throws SQLException {
+    public boolean addCourse(Course course) throws SQLException {
         PreparedStatement pst =getPreparedStatement(ADD_NEW_COURSE_DATA);
         pst.setString(1, course.getCourseTitle());
         pst.setInt(2, course.getCourseUnit());
         pst.executeUpdate();
-        return getCourseByTitle(course.getCourseTitle());
+        return getCourseByTitle(course.getCourseTitle()).isPresent();
 
     }
 
@@ -72,18 +74,20 @@ public class CourseRepositoryImpl implements CourseRepository {
     }
 
     @Override
-    public Course getCourseByTitle(String courseTitle) throws SQLException {
+    public Optional<Course> getCourseByTitle(String courseTitle) throws SQLException {
         PreparedStatement pst=getPreparedStatement(GET_COURSE_FIND_BY_TITLE);
         pst.setString(1, courseTitle);
         ResultSet rs=pst.executeQuery();
+        Optional<Course>optionalCourse=Optional.empty();
         if(rs.next()) {
-            return new Course(
+            Course course= new Course(
                     rs.getInt("course_id"),
                     rs.getString("course_title"),
                     rs.getInt("course_unit")
             );
+            optionalCourse=Optional.of(course);
         }
-        return null;
+        return optionalCourse;
     }
 
     @Override

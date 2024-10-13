@@ -10,6 +10,7 @@ import util.SecurityContext;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class CourseStudentServiceImpl implements CourseStudentService {
     private final CourseStudentRepository csr;
@@ -31,13 +32,13 @@ public class CourseStudentServiceImpl implements CourseStudentService {
 
     @Override
     public boolean addCourse(String courseTitle) throws SQLException {
-        Course course = cr.getCourseByTitle(courseTitle);
+        Optional<Course>optionalCourse=cr.getCourseByTitle(courseTitle);
 
-        if (course == null) {
+        if (optionalCourse.isEmpty()) {
             throw new SQLException("Course not found");
         }
-        if (csr.getCountCourseStudent(course.getCourseId(), SecurityContext.student.getStudentId())==0) {
-            return csr.addCourse(course.getCourseId(), SecurityContext.student.getStudentId(), SecurityContext.student.getNationalCode());
+        if (csr.getCountCourseStudent(optionalCourse.get().getCourseId(), SecurityContext.student.getStudentId())==0) {
+            return csr.addCourse(optionalCourse.get().getCourseId(), SecurityContext.student.getStudentId(), SecurityContext.student.getNationalCode());
         } else {
             throw new SQLException("Course not found");
         }
@@ -58,10 +59,11 @@ public class CourseStudentServiceImpl implements CourseStudentService {
 
     @Override
     public boolean removeCourse(String courseTitle) throws SQLException {
-        Course course = cr.getCourseByTitle(courseTitle);
-        if (course == null) {
+            Optional<Course>optionalCourse=cr.getCourseByTitle(courseTitle);
+
+        if (optionalCourse.isEmpty()) {
             throw new SQLException("Course not found");
         }
-        return csr.deleteCourse(course.getCourseId(), SecurityContext.student.getStudentId(), SecurityContext.student.getNationalCode());
+        return csr.deleteCourse(optionalCourse.get().getCourseId(), SecurityContext.student.getStudentId(), SecurityContext.student.getNationalCode());
     }
 }

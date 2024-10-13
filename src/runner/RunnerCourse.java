@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class RunnerCourse {
     static Scanner sc = new Scanner(System.in);
+
     public static void Course() {
         System.out.println("1: Add Course");
         System.out.println("2: Remove Course");
@@ -43,29 +44,30 @@ public class RunnerCourse {
 
     public static void AddCourse() {
         try {
-        System.out.println("enter a title");
-        String title = sc.nextLine();
-        System.out.println("enter a unit");
-        int unit = sc.nextInt();
-        sc.nextLine();
-        System.out.println("enter a exam Date (2000-01-01): ");
-        String date = sc.nextLine();
-        int year = Integer.parseInt(date.substring(0, 4));
-        int month = Integer.parseInt(date.substring(5, 7));
-        int day = Integer.parseInt(date.substring(8, 10));
-        System.out.println("enter a Time (12:30): ");
-        String time = sc.nextLine();
-        int hour = Integer.parseInt(time.substring(0, 2));
-        int minute = Integer.parseInt(time.substring(3, 5));
-        Course course = ApplicationContext.getCourseService().createCourse(new Course(title,unit));
-        ApplicationContext.getExamService().addExam(new Exam(
-                title,
-                LocalDate.of(year,month,day),
-                LocalTime.of(hour,minute),
-                course.getCourseId()
-        ));
-        System.out.println("exam and course successfully added");
-        System.out.println("Course added");
+            System.out.println("enter a title");
+            String title = sc.nextLine();
+            System.out.println("enter a unit");
+            int unit = sc.nextInt();
+            sc.nextLine();
+            System.out.println("enter a exam Date (2000-01-01): ");
+            String date = sc.nextLine();
+            int year = Integer.parseInt(date.substring(0, 4));
+            int month = Integer.parseInt(date.substring(5, 7));
+            int day = Integer.parseInt(date.substring(8, 10));
+            System.out.println("enter a Time (12:30): ");
+            String time = sc.nextLine();
+            int hour = Integer.parseInt(time.substring(0, 2));
+            int minute = Integer.parseInt(time.substring(3, 5));
+            ApplicationContext.getCourseService().createCourse(new Course(title, unit));
+            Course course = ApplicationContext.getCourseService().getCourseByTitle(title).get();
+            ApplicationContext.getExamService().addExam(new Exam(
+                    title,
+                    LocalDate.of(year, month, day),
+                    LocalTime.of(hour, minute),
+                    course.getCourseId()
+            ));
+            System.out.println("exam and course successfully added");
+            System.out.println("Course added");
 
 
         } catch (Exception exception) {

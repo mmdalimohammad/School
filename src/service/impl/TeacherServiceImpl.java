@@ -11,6 +11,7 @@ import util.SecurityContext;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class TeacherServiceImpl implements TeacherService {
 
@@ -45,29 +46,30 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public boolean add(Teacher teacher) throws SQLException {
-        if (teacher == null) {
+        if (teacher==null) {
             throw new IllegalArgumentException("teacher cannot be null");
         }
         return tr.add(teacher);
     }
 
-    @Override
-    public Teacher generate(String firstName, String lastName, String nationalCode) throws SQLException {
-        if (tr.getByNationalCode(nationalCode) != null) {
-            throw new IllegalArgumentException("teacher already exists");
-        } else {
-            return new Teacher(firstName, lastName, nationalCode);
-        }
-    }
+
 
     @Override
     public boolean remove(String nationalCode) throws SQLException {
-        return tr.remove(tr.getByNationalCode(nationalCode));
+        Optional<Teacher> teacher=tr.getByNationalCode(nationalCode);
+        if (teacher.isEmpty()) {
+            throw new IllegalArgumentException("teacher not found");
+        }else {
+            return tr.remove(teacher.get());
+        }
+
     }
+
 
     @Override
     public boolean update(String nationalCode, Teacher newTeacher) throws SQLException {
-        if (tr.getByNationalCode(nationalCode) == null || newTeacher == null) {
+        Optional<Teacher> teacher=tr.getByNationalCode(nationalCode);
+        if (teacher.isEmpty()) {
             throw new IllegalArgumentException("teacher is null");
         } else {
             tr.update(newTeacher);
@@ -76,8 +78,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Teacher getNationalCode(String nationalCode) throws SQLException {
-        if (tr.getByNationalCode(nationalCode) == null) {
+    public Optional<Teacher> getNationalCode(String nationalCode) throws SQLException {
+        if (tr.getByNationalCode(nationalCode).isPresent()) {
             throw new IllegalArgumentException("nationalCode already exists");
         } else {
             return tr.getByNationalCode(nationalCode);
@@ -86,9 +88,9 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public boolean signInTeacher(int teacherId, String nationalCode) throws SQLException {
-        Teacher teacher = tr.getByIdAndNationalCode(teacherId, nationalCode);
-        if (teacher != null) {
-            SecurityContext.teacher = teacher;
+        Optional<Teacher> teacher=tr.getByNationalCode(nationalCode);
+        if (teacher.isPresent()) {
+            SecurityContext.teacher = teacher.get();
             return true;
         }
         return false;
@@ -114,13 +116,13 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public boolean addScore(String nationalCode,int courseId,double score) throws SQLException {
-        Student student = sr.getByNationalCode(nationalCode);
-        if (student == null) {
+        Optional<Student>optionalStudent=sr.getByNationalCode(nationalCode);
+        if (optionalStudent.isEmpty()) {
             throw new IllegalArgumentException("student not found");
         } else if (score > 20.0 || score < 0.0) {
             throw new IllegalArgumentException("Avg score cannot be more than 20.0 or less than 0.0");
         }
-        return tr.addScore(student.getStudentId(),courseId,score);
+        return tr.addScore(optionalStudent.get().getStudentId(),courseId,score);
     }
 
 

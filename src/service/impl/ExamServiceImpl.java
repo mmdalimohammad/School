@@ -6,6 +6,8 @@ import service.ExamService;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 
 public class ExamServiceImpl implements ExamService {
@@ -18,7 +20,7 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public boolean addExam(Exam exam) throws SQLException {
-        if (exam == null) {
+        if (exam==null) {
             throw new SQLException("exam is null");
         } else {
             return er.addExam(exam);
@@ -27,20 +29,17 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public boolean updateExam(String name, Exam newExam) throws SQLException {
-        Exam exam = er.getExamByName(name);
-        if (exam == null || newExam == null) {
+        Optional<Exam>optionalExam=er.getExamByName(name);
+        if (optionalExam.isEmpty() || newExam == null) {
             throw new IllegalArgumentException("exam is null");
         } else {
-            newExam.setExamId(exam.getExamId());
+            newExam.setExamId(optionalExam.get().getExamId());
             newExam.setExamName(name);
             return er.updateExam(newExam);
         }
     }
 
-    @Override
-    public boolean deleteExam(String name) throws SQLException {
-        return er.deleteExam(er.getExamByName(name));
-    }
+
 
     @Override
     public void printAllExams() {
@@ -61,8 +60,8 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public Exam getExamByName(String ExamName) throws SQLException {
-        if (er.getExamByName(ExamName) == null) {
+    public Optional<Exam> getExamByName(String ExamName) throws SQLException {
+        if (er.getExamByName(ExamName).isPresent()) {
             throw new IllegalArgumentException("name already exists");
         } else {
             return er.getExamByName(ExamName);

@@ -1,6 +1,7 @@
 package repository.impl;
 
 import model.Student;
+import model.Teacher;
 import repository.BaseRepository;
 import repository.StudentRepository;
 import data.Database;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static data.Database.*;
 import static data.Query.*;
@@ -73,12 +75,13 @@ public class StudentRepositoryImpl implements StudentRepository{
     }
 
     @Override
-    public Student getByNationalCode(String nationalCode) throws SQLException {
+    public Optional<Student> getByNationalCode(String nationalCode) throws SQLException {
         PreparedStatement pst =getPreparedStatement(GET_STUDENT_FIND_BY_NATIONAL_CODE);
         pst.setString(1, nationalCode);
         ResultSet rs = pst.executeQuery();
+        Optional<Student> optionalStudent= Optional.empty();
         if (rs.next()) {
-            return new Student(
+            Student student1 =new Student(
                     rs.getLong("student_id"),
                     rs.getString("first_name"),
                     rs.getString("last_name"),
@@ -86,8 +89,9 @@ public class StudentRepositoryImpl implements StudentRepository{
                     rs.getString("national_code")
 
             );
+            optionalStudent = Optional.of(student1);
         }
-        return null;
+        return optionalStudent;
     }
 
     @Override
@@ -101,21 +105,23 @@ public class StudentRepositoryImpl implements StudentRepository{
     }
 
     @Override
-    public Student getByIdAndNationalCode(int id, String nationalCode) throws SQLException {
+    public Optional<Student> getByIdAndNationalCode(int id, String nationalCode) throws SQLException {
         PreparedStatement pst = getPreparedStatement(GET_STUDENT_BY_ID_NATIONAL_CODE);
         pst.setInt(1, id);
         pst.setString(2, nationalCode);
         ResultSet rs = pst.executeQuery();
+        Optional<Student> optionalStudent= Optional.empty();
         if (rs.next()) {
-            return new Student(
+            Student student=new Student(
                     rs.getInt("student_id"),
                     rs.getString("first_name"),
                     rs.getString("last_name"),
                     rs.getDate("dob").toLocalDate(),
                     rs.getString("national_code")
             );
+            optionalStudent = Optional.of(student);
         }
-        return null;
+        return optionalStudent;
     }
 
 }
