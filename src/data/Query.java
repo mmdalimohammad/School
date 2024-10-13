@@ -50,9 +50,9 @@ public class Query {
     //language=sql
     public static final String GET_TEACHER_BY_ID_NATIONAL_CODE = "select *\n" + "from teachers\n" + "where teacher_id = ? and national_code = ?";
     //language=sql
-    public static final String GET_USER_STUDENT="select s.student_id,concat( s.first_name,' ' ,s.last_name) as full_name, s.national_code, s.gpu from teachers t join courses_students cs on t.course_id = cs.course_id join students s on cs.student_id = s.student_id where t.teacher_id = ? ";
+    public static final String GET_USER_STUDENT="select s.student_id,concat( s.first_name,' ' ,s.last_name) as full_name, s.national_code, cs.score from teachers t join courses_students cs on t.course_id = cs.course_id join students s on cs.student_id = s.student_id where t.teacher_id = ? ";
     //language=sql
-    public static final String GET_ADD_SCORE="UPDATE students SET gpu = ? WHERE national_code = ?";
+    public static final String GET_ADD_SCORE="UPDATE courses_students SET score = ? WHERE student_id = ? and course_id = ?";
 
     //******************************************************************************************************************************************
 

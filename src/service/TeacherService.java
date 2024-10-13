@@ -13,7 +13,7 @@ public interface TeacherService {
     Teacher getNationalCode(String nationalCode)throws SQLException;
     boolean signInTeacher(int teacherId, String nationalCode) throws SQLException;
     void printAllStudent() ;
-    boolean addScore(String nationalCode, double score) throws SQLException;
+    boolean addScore(String nationalCode,int courseId ,double score) throws SQLException;
 
 
 }

@@ -23,7 +23,7 @@ public interface TeacherRepository extends BaseRepository<Teacher> {
     Teacher getByIdAndNationalCode(int id, String nationalCode) throws SQLException;
     List<StudentDto> getAllStudent() throws SQLException;
 
-    boolean addScore(String nationalCode, double score) throws SQLException;
+    boolean addScore(long studentId,int courseId, double score) throws SQLException;
 
 
 

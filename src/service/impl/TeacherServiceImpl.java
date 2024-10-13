@@ -113,14 +113,14 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public boolean addScore(String nationalCode, double score) throws SQLException {
+    public boolean addScore(String nationalCode,int courseId,double score) throws SQLException {
         Student student = sr.getByNationalCode(nationalCode);
         if (student == null) {
             throw new IllegalArgumentException("student not found");
         } else if (score > 20.0 || score < 0.0) {
             throw new IllegalArgumentException("Avg score cannot be more than 20.0 or less than 0.0");
         }
-        return tr.addScore(nationalCode, score);
+        return tr.addScore(student.getStudentId(),courseId,score);
     }
 
 

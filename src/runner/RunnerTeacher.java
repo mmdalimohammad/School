@@ -111,7 +111,7 @@ public class RunnerTeacher {
             System.out.println("enter national code");
             String nationalCode = sc.nextLine();
             nationalCode = (sc.nextLine());
-            ApplicationContext.getTeacherService().addScore(nationalCode,score);
+            ApplicationContext.getTeacherService().addScore(nationalCode,SecurityContext.teacher.getCourseID(),score);
             System.out.println("dune add score");
         }catch (Exception exception) {
             System.out.println(exception.getMessage());

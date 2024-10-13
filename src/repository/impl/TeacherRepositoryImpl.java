@@ -94,6 +94,7 @@ public class TeacherRepositoryImpl implements TeacherRepository {
         if (rt.next()) {
             return new Teacher(
                     rt.getLong("teacher_id"),
+                    rt.getInt("course_id"),
                     rt.getString("first_name"),
                     rt.getString("last_name"),
                     rt.getDate("dob").toLocalDate(),
@@ -114,7 +115,7 @@ public class TeacherRepositoryImpl implements TeacherRepository {
                     rs.getInt("student_id"),
                     rs.getString("full_name"),
                     rs.getString("national_Code"),
-                    rs.getDouble("gpu")
+                    rs.getDouble("score")
             ));
 
         }
@@ -122,10 +123,11 @@ public class TeacherRepositoryImpl implements TeacherRepository {
     }
 
     @Override
-    public boolean addScore(String nationalCode, double score) throws SQLException {
+    public boolean addScore(long studentID,int courseId, double score) throws SQLException {
         PreparedStatement pst=getPreparedStatement(GET_ADD_SCORE);
         pst.setDouble(1, score);
-        pst.setString(2,nationalCode);
+       pst.setLong(2, studentID);
+       pst.setLong(3, courseId);
         pst.executeUpdate();
         return true;
     }
