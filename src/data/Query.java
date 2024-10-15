@@ -67,12 +67,7 @@ public class Query {
     //language=sql
     public static final String UPDATE_COURSE_DATA = "UPDATE courses SET course_title = ?,course_unit=? WHERE course_id = ?";
     //language=sql
-    public static final String GET_ALL_COURSE_DTO = "select c.course_title, c.course_unit, concat(t.first_name, ' ' , t.last_name) as teacherName, e.date, e.time\n" +
-            "from courses c\n" +
-            "         join teachers t\n" +
-            "              on c.course_id = t.course_id\n" +
-            "         join exams e\n" +
-            "              on c.course_id = e.course_id";
+    public static final String GET_ALL_COURSE_DTO = "select c.course_title, c.course_unit, concat(t.first_name, ' ' , t.last_name) as teacherName, e.date, e.time from courses c join teachers t on c.course_id = t.course_id join exams e on c.course_id = e.course_id";
     //language=sql
     public static final String REMOVE_EXAM_COURSE = "DELETE FROM exams WHERE course_id = ?";
     //language=sql

@@ -79,7 +79,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public Optional<Teacher> getNationalCode(String nationalCode) throws SQLException {
-        if (tr.getByNationalCode(nationalCode).isPresent()) {
+        if (tr.getByNationalCode(nationalCode).isEmpty()) {
             throw new IllegalArgumentException("nationalCode already exists");
         } else {
             return tr.getByNationalCode(nationalCode);
