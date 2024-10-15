@@ -56,13 +56,16 @@ public class CourseServiceImpl implements CourseService {
     public void printAllCoursesList(){
         try {
             List<Course>courses = cr.getAllCourses();
-            System.out.printf("\u001B[35m"+"%-13s %-16s %-16s \n", "course id", "course title", "course unit");
+            System.out.format("\033[1;35m"+"+------+-----------+------+%n");
+            System.out.format("\033[1;35m"+"| ID   | Title     | unit |%n");
+            System.out.format("\033[1;35m"+"+------+-----------+------+%n");
             for (Course course : courses) {
-                System.out.printf("%-13s %-16s %-16s \n",
+                System.out.printf("\033[1;35m"+"|"+"\033[1;34m"+" %-4s"+"\033[1;35m"+" |"+"\033[1;34m"+" %-9s"+"\033[1;35m"+" |"+"\033[1;34m"+" %-4s"+"\033[1;35m"+" |"+"\033[1;34m"+"\n",
                         course.getCourseId(),
                         course.getCourseTitle(),
                         course.getCourseUnit());
             }
+            System.out.format("\033[1;35m"+"+------+-----------+------+%n");
         }catch (SQLException sqlException){
             System.out.println("there is problem with connecting to database");
         }

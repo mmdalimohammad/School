@@ -203,6 +203,7 @@ public class Runner {
                 teacher();
                 case 4:
                 RunnerTeacher.showMyInformation();
+                teacher();
             case 5:
                 signInStAndTe();
         }

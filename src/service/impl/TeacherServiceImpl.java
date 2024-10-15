@@ -29,14 +29,17 @@ public class TeacherServiceImpl implements TeacherService {
     public void printAllList() {
         try {
             List<Teacher> teachers = tr.getAll();
-            System.out.printf("\u001B[35m" + "%-7s %-17s %-13s %-17s\n", "id", "first name", "last name", "national code");
+            System.out.format("\033[1;35m"+"+------+----------------+---------------+---------------+%n");
+            System.out.format("\033[1;35m"+"| ID   | first name     | last name     | national code |%n");
+            System.out.format("\033[1;35m"+"+------+----------------+---------------+---------------+%n");
             for (Teacher teacher : teachers) {
-                System.out.printf("%-7s %-17s %-13s %-17s\n",
+                System.out.printf("\033[1;35m"+"|"+"\033[1;34m"+" %-4s"+"\033[1;35m"+" |"+"\033[1;34m"+" %-14s"+"\033[1;35m"+" |"+"\033[1;34m"+" %-13s"+"\033[1;35m"+" |"+"\033[1;34m"+" %-14s"+"\033[1;35m"+"|"+"\n",
                         teacher.getTeacherId(),
                         teacher.getFirstName(),
                         teacher.getLastName(),
                         teacher.getNationalCode());
             }
+            System.out.format("\033[1;35m"+"+------+----------------+---------------+---------------+%n");
         } catch (SQLException sqlException) {
             System.out.println("there is problem with connecting to database");
         }
@@ -100,14 +103,17 @@ public class TeacherServiceImpl implements TeacherService {
     public void printAllStudent() {
         try {
             List<StudentDto> studentDto = tr.getAllStudent();
-            System.out.printf("\u001B[35m" + "%-7s %-17s %-20s %-17s\n", "id", "full name", "national code", "score");
+            System.out.format("\033[1;35m"+"+------+----------------+---------------+--------+%n");
+            System.out.format("\033[1;35m"+"| ID   | full name      | national code | score  |%n");
+            System.out.format("\033[1;35m"+"+------+----------------+---------------+--------+%n");
             for (StudentDto student : studentDto) {
-                System.out.printf("%-7s %-17s %-20s %-17s\n",
+                System.out.printf("\033[1;35m"+"|"+"\033[1;34m"+" %-4s"+"\033[1;35m"+" |"+"\033[1;34m"+" %-14s"+"\033[1;35m"+" |"+"\033[1;34m"+" %-13s"+"\033[1;35m"+" |"+"\033[1;34m"+" %-7s"+"\033[1;35m"+"|"+"\n",
                         student.getStudentId(),
                         student.getFullName(),
                         student.getNationalCode(),
                         student.getGpu());
             }
+            System.out.format("\033[1;35m"+"+------+----------------+---------------+--------+%n");
         } catch (SQLException sqlException) {
             System.out.println(sqlException.getMessage());
         }

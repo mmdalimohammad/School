@@ -32,12 +32,12 @@ public class CourseStudentServiceImpl implements CourseStudentService {
 
     @Override
     public boolean addCourse(String courseTitle) throws SQLException {
-        Optional<Course>optionalCourse=cr.getCourseByTitle(courseTitle);
+        Optional<Course> optionalCourse = cr.getCourseByTitle(courseTitle);
 
         if (optionalCourse.isEmpty()) {
             throw new SQLException("Course not found");
         }
-        if (csr.getCountCourseStudent(optionalCourse.get().getCourseId(), SecurityContext.student.getStudentId())==0) {
+        if (csr.getCountCourseStudent(optionalCourse.get().getCourseId(), SecurityContext.student.getStudentId()) == 0) {
             return csr.addCourse(optionalCourse.get().getCourseId(), SecurityContext.student.getStudentId(), SecurityContext.student.getNationalCode());
         } else {
             throw new SQLException("Course not found");
@@ -47,10 +47,18 @@ public class CourseStudentServiceImpl implements CourseStudentService {
     public void showMyCourses() {
         try {
             List<CourseDto> courses = ApplicationContext.getCourseStudentService().getCourses();
-            System.out.printf("\u001B[35m" + "%-13s %-13s %-25s %-13s %-13s\n", "title", "credit", "teacher", "exam date", "exam time");
+            System.out.format("\033[1;35m"+"+-----------+--------+------------------+-------------+-----------+%n");
+            System.out.format("\033[1;35m"+"| Title     | unit   | Teacher Name     | Exam Date   | Exam Time |%n");
+            System.out.format("\033[1;35m"+"+-----------+--------+------------------+-------------+-----------+%n");
             for (CourseDto course : courses) {
-                System.out.printf("\u001B[35m" + "%-13s %-13s %-25s %-13s %-13s\n", course.getCourseTitle(), course.getCourseUnit(), course.getTeacherName(), course.getExamDate(), course.getExamTime());
+                System.out.printf("\033[1;35m"+"|"+"\033[1;34m"+" %-9s"+"\033[1;35m"+" |"+"\033[1;34m"+" %-6s"+"\033[1;35m"+" |"+"\033[1;34m"+" %-16s"+"\033[1;35m"+" |"+"\033[1;34m"+" %-11s"+"\033[1;35m"+" |"+"\033[1;34m"+" %-10s"+"\033[1;35m"+"|"+"\n",
+                        course.getCourseTitle(),
+                        course.getCourseUnit(),
+                        course.getTeacherName(),
+                        course.getExamDate(),
+                        course.getExamTime());
             }
+            System.out.format("\033[1;35m"+"+-----------+--------+------------------+-------------+-----------+%n");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -59,7 +67,7 @@ public class CourseStudentServiceImpl implements CourseStudentService {
 
     @Override
     public boolean removeCourse(String courseTitle) throws SQLException {
-            Optional<Course>optionalCourse=cr.getCourseByTitle(courseTitle);
+        Optional<Course> optionalCourse = cr.getCourseByTitle(courseTitle);
 
         if (optionalCourse.isEmpty()) {
             throw new SQLException("Course not found");

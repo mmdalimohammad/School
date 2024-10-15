@@ -25,22 +25,36 @@ public class StudentServiceImpl implements StudentService {
     public void printAllList() {
         try {
             List<Student> students = sr.getAll();
-            System.out.printf("\u001B[35m" + "%-7s %-13s %-13s %-13s %-17s\n", "id", "first name", "last name", "birth day", "national code");
+            System.out.format("\033[1;35m"+"+------+----------------+---------------+---------------+---------------+%n");
+            System.out.format("\033[1;35m"+"| ID   | first name     | last name     | birth date    | national code |%n");
+            System.out.format("\033[1;35m"+"+------+----------------+---------------+---------------+---------------+%n");
             for (Student student : students) {
-                System.out.printf("%-7s %-13s %-13s %-13s %-17s\n",
-                        student.getStudentId(),
-                        student.getFirstName(),
-                        student.getLastName(),
-                        student.getDob(),
-                        student.getNationalCode());
+                System.out.printf("\033[1;35m"+"|"+"\033[1;34m"+" %-4s"+"\033[1;35m"+" |"+"\033[1;34m"+" %-14s"+"\033[1;35m"+" |"+"\033[1;34m"+" %-13s"+"\033[1;35m"+" |"+"\033[1;34m"+" %-13s"+"\033[1;35m"+" |"+"\033[1;34m"+" %-14s"+"\033[1;35m"+"|"+"\n",
+                student.getStudentId(),
+                student.getFirstName(),
+               student.getLastName(),
+               student.getDob(),
+              student.getNationalCode());
             }
+            System.out.format("\033[1;35m"+"+------+----------------+---------------+---------------+---------------+%n");
 
-        } catch (SQLException sqlException) {
+        } catch (Exception sqlException) {
             System.out.println("there is problem with connecting to database");
         }
         System.out.println("\033[0m");
     }
 
+
+//    List<Student> students = sr.getAll();
+//            System.out.printf("\033[4;37m"+"\033[1;35m" + "%-7s %-13s %-13s %-13s %-17s\n", "id", "first name", "last name", "birth day", "national code");
+//            for (Student student : students) {
+//        System.out.printf("\033[1;34m"+"%-7s %-13s %-13s %-13s %-17s\n",
+//                student.getStudentId(),
+//                student.getFirstName(),
+//                student.getLastName(),
+//                student.getDob(),
+//                student.getNationalCode());
+//    }
 
     @Override
     public boolean add(Student student) throws SQLException {

@@ -124,7 +124,7 @@ public class RunnerTeacher {
 
             Teacher teacher=ApplicationContext.getTeacherService().getNationalCode(SecurityContext.teacher.getNationalCode()).get();
             System.out.printf("\u001B[35m" + "%-7s %-17s %-13s %-17s\n", "id", "first name", "last name", "national code");
-                System.out.printf("%-7s %-17s %-13s %-17s\n",
+                System.out.printf("\033[1;34m"+"%-7s %-17s %-13s %-17s\n",
                         teacher.getTeacherId(),
                         teacher.getFirstName(),
                         teacher.getLastName(),

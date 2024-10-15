@@ -20,7 +20,7 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public boolean addExam(Exam exam) throws SQLException {
-        if (exam==null) {
+        if (exam == null) {
             throw new SQLException("exam is null");
         } else {
             return er.addExam(exam);
@@ -29,7 +29,7 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public boolean updateExam(String name, Exam newExam) throws SQLException {
-        Optional<Exam>optionalExam=er.getExamByName(name);
+        Optional<Exam> optionalExam = er.getExamByName(name);
         if (optionalExam.isEmpty() || newExam == null) {
             throw new IllegalArgumentException("exam is null");
         } else {
@@ -40,19 +40,21 @@ public class ExamServiceImpl implements ExamService {
     }
 
 
-
     @Override
     public void printAllExams() {
         try {
             List<Exam> exams = er.getAllExams();
-            System.out.printf("\u001B[35m" + "%-7s %-13s %-13s %-17s\n", "id", "name", "Date", "Time");
+            System.out.format("\033[1;35m" + "+------+----------------+-------------+------------+%n");
+            System.out.format("\033[1;35m" + "| ID   | Exam name      | Exam Date   | Exam Time  |%n");
+            System.out.format("\033[1;35m" + "+------+----------------+-------------+------------+%n");
             for (Exam exam : exams) {
-                System.out.printf("%-7s %-13s %-13s %-17s\n",
+                System.out.printf("\033[1;35m" + "|" + "\033[1;34m" + " %-4s" + "\033[1;35m" + " |" + "\033[1;34m" + " %-14s" + "\033[1;35m" + " |" + "\033[1;34m" + " %-11s" + "\033[1;35m" + " |" + "\033[1;34m" + " %-11s" + "\033[1;35m" + "|" + "\n",
                         exam.getExamId(),
                         exam.getExamName(),
                         exam.getExamDate(),
                         exam.getExamTime());
             }
+            System.out.format("\033[1;35m" + "+------+----------------+-------------+------------+%n");
         } catch (SQLException sqlException) {
             System.out.println("there is problem with connecting to database");
         }
