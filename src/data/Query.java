@@ -34,6 +34,8 @@ public class Query {
     public static final String REMOVE_COURSE_STUDENT_ID = "DELETE FROM courses_students WHERE student_id = ?";
     //language=sql
     public static final String REMOVE_EXAM_STUDENT_ID = "DELETE FROM exams_students WHERE student_id = ?";
+    //language=sql
+    public static final String AVG_SCORE_STUDENT = "Update students SET gpu = (select avg(score) from courses_students where courses_students.student_id = ?) where student_id = ?";
     //******************************************************************************************************************************************
 
     //language=sql

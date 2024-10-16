@@ -135,6 +135,12 @@ public class TeacherRepositoryImpl implements TeacherRepository {
        pst.setLong(2, studentID);
        pst.setLong(3, courseId);
         pst.executeUpdate();
+
+        pst=getPreparedStatement(AVG_SCORE_STUDENT);
+        pst.setLong(1, studentID);
+        pst.setLong(2, studentID);
+        pst.executeUpdate();
         return true;
+
     }
 }

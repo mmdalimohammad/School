@@ -9,7 +9,7 @@ public class Utility {
     private static String getRandomCode() {
         Random random = new Random();
         StringBuilder code = new StringBuilder();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             int digit = random.nextInt(10);
             code.append(digit);
         }

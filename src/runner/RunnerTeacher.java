@@ -123,14 +123,18 @@ public class RunnerTeacher {
         try {
 
             Teacher teacher=ApplicationContext.getTeacherService().getNationalCode(SecurityContext.teacher.getNationalCode()).get();
-            System.out.printf("\u001B[35m" + "%-7s %-17s %-13s %-17s\n", "id", "first name", "last name", "national code");
-                System.out.printf("\033[1;34m"+"%-7s %-17s %-13s %-17s\n",
+            System.out.format("\033[1;35m"+"+------+--------------+--------------+---------------+%n");
+            System.out.format("\033[1;35m"+"| ID   | first name   | last name    | national code |%n");
+            System.out.format("\033[1;35m"+"+------+--------------+--------------+---------------+%n");
+                 System.out.printf("\033[1;35m"+"|"+"\033[1;34m"+" %-4s"+"\033[1;35m"+" |"+"\033[1;34m"+" %-12s"+"\033[1;35m"+" |"+"\033[1;34m"+" %-12s"+"\033[1;35m"+" |"+"\033[1;34m"+"\033[1;34m"+" %-14s"+"\033[1;35m"+"|"+"\n",
                         teacher.getTeacherId(),
                         teacher.getFirstName(),
                         teacher.getLastName(),
                         teacher.getNationalCode());
+            System.out.format("\033[1;35m"+"+------+--------------+--------------+---------------+%n");
+        }
 
-        }catch (Exception exception) {
+        catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
         System.out.println("\033[0m");

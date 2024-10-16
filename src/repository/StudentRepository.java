@@ -24,4 +24,6 @@ public interface StudentRepository extends BaseRepository<Student> {
     @Override
     boolean update(Student student) throws SQLException;
 
+
+
 }

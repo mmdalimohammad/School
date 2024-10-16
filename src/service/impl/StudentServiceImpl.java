@@ -45,16 +45,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
 
-//    List<Student> students = sr.getAll();
-//            System.out.printf("\033[4;37m"+"\033[1;35m" + "%-7s %-13s %-13s %-13s %-17s\n", "id", "first name", "last name", "birth day", "national code");
-//            for (Student student : students) {
-//        System.out.printf("\033[1;34m"+"%-7s %-13s %-13s %-13s %-17s\n",
-//                student.getStudentId(),
-//                student.getFirstName(),
-//                student.getLastName(),
-//                student.getDob(),
-//                student.getNationalCode());
-//    }
 
     @Override
     public boolean add(Student student) throws SQLException {

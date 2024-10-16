@@ -91,7 +91,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public boolean signInTeacher(int teacherId, String nationalCode) throws SQLException {
-        Optional<Teacher> teacher=tr.getByNationalCode(nationalCode);
+        Optional<Teacher> teacher=tr.getByIdAndNationalCode(teacherId,nationalCode);
         if (teacher.isPresent()) {
             SecurityContext.teacher = teacher.get();
             return true;
@@ -119,6 +119,7 @@ public class TeacherServiceImpl implements TeacherService {
         }
         System.out.println("\033[0m");
     }
+
 
     @Override
     public boolean addScore(String nationalCode,int courseId,double score) throws SQLException {
